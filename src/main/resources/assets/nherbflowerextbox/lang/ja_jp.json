@@ -1,0 +1,41 @@
+{
+  "itemGroup.NHerbFlowerExtBox": "N Herb Flower Ext Box",
+
+  "item.nherbflowerextbox.custom_potion" : "オリジナルポーション",
+
+  "block.nherbflowerextbox.bellflower" : "キキョウ",
+  "item.nherbflowerextbox.dried_bellflower" : "乾燥したキキョウ",
+  "item.nherbflowerextbox.bellflower_powder" : "キキョウの粉末",
+  "block.nherbflowerextbox.garden_marigold" : "キンセンカ",
+  "item.nherbflowerextbox.dried_garden_marigold" : "乾燥したキンセンカ",
+  "item.nherbflowerextbox.garden_marigold_powder" : "キンセンカの粉末",
+
+
+
+  "block.nherbflowerextbox.millstone" : "石臼",
+  "block.nherbflowerextbox.clay_cauldron" : "土釜",
+
+  "container.nherbflowerextbox.millstone" : "石臼",
+  "container.nherbflowerextbox.clay_cauldron" : "土釜",
+  "container.nherbflowerextbox.inventory" : "インベントリ",
+
+  "tooltip.constituent.nherbflowerextbox.effect" : "成分",
+  "tooltip.part.nherbflowerextbox.flower" : "花:",
+  "tooltip.part.nherbflowerextbox.leaf" : "葉:",
+  "tooltip.part.nherbflowerextbox.stem" : "茎:",
+  "tooltip.part.nherbflowerextbox.root" : "根:",
+
+  "tooltip.clay_cauldron.nherbflowerextbox.nothing" : "なし",
+  "tooltip.clay_cauldron.nherbflowerextbox.water" : "水",
+  "tooltip.clay_cauldron.nherbflowerextbox.component" : "成分",
+
+  "tooltip.constituent.nherbflowerextbox.healing" : "回復",
+  "tooltip.constituent.nherbflowerextbox.resistance" : "防御",
+
+  "effect.nherbflowerextbox.bleeding" : "出血",
+  "effect.nherbflowerextbox.confusion" : "混乱",
+  "effect.nherbflowerextbox.paralysis" : "麻痺",
+  "effect.nherbflowerextbox.stagger" : "千鳥足",
+  "effect.nherbflowerextbox.anorexia" : "食欲不振",
+  "effect.nherbflowerextbox.suffocation" : "窒息"
+}

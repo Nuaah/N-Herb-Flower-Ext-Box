@@ -1,0 +1,5 @@
+{
+  "vertex": "nherbflowerextbox:grayscale.vsh",
+  "fragment": "nherbflowerextbox:grayscale.fsh",
+  "samplers": [{"name": "DiffuseSampler"}]
+}

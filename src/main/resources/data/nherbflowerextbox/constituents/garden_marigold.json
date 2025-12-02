@@ -1,0 +1,6 @@
+{
+  "name": "garden_marigold",
+  "components": [
+    {"soluble" : "water", "part" : "flower" ,"id": "minecraft:absorption", "amount": 1.0 }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "##I",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "nherbflowerextbox:millstone"
+  },
+  "show_notification": true
+}

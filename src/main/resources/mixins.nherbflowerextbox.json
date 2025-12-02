@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.Nuaah.nherbflowerextbox.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.nherbflowerextbox.refmap.json",
+  "mixins": [
+    "LivingEntityMixin",
+    "EntityMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

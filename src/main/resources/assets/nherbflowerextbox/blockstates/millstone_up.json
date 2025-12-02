@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east":  {
+      "model": "nherbflowerextbox:block/millstone_up",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nherbflowerextbox:block/millstone_up"
+    },
+    "facing=south": {
+      "model": "nherbflowerextbox:block/millstone_up",
+      "y": 180
+    },
+    "facing=west":  {
+      "model": "nherbflowerextbox:block/millstone_up",
+      "y": 270
+    }
+  }
+}
