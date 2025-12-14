@@ -1,0 +1,20 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "attributes": [
+    "Position",
+    "UV0"
+  ],
+  "uniforms": [
+    { "name": "u_Time", "type": "float", "count": 1, "values": [ 0.25 ] }
+  ],
+
+  "vertex": "nherbflowerextbox:grayscale",
+  "fragment": "nherbflowerextbox:rainbow_vision",
+  "samplers": [
+    { "name": "DiffuseSampler" }
+  ]
+}

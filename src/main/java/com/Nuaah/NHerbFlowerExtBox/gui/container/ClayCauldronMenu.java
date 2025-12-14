@@ -64,6 +64,7 @@ public class ClayCauldronMenu extends AbstractContainerMenu {
     }
 
     public Map getConstituents(){
+        System.out.println(blockEntity.getConstituents());
         return blockEntity.getConstituents();
     }
 
@@ -71,6 +72,9 @@ public class ClayCauldronMenu extends AbstractContainerMenu {
         return blockEntity.getDurations();
     }
 
+    public String getLiquidType(){
+        return blockEntity.getLiquidType();
+    }
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {

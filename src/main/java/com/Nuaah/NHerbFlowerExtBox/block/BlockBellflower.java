@@ -4,7 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,8 +29,6 @@ public class BlockBellflower extends BushBlock {
             .offsetType(OffsetType.XZ)
                 .ignitedByLava());
     }
-
-
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {

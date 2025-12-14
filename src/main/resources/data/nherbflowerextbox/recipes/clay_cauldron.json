@@ -12,7 +12,8 @@
     "###"
   ],
   "result": {
-    "item": "nherbflowerextbox:clay_cauldron"
+    "item": "nherbflowerextbox:clay_cauldron",
+    "count": 1
   },
   "show_notification": true
 }

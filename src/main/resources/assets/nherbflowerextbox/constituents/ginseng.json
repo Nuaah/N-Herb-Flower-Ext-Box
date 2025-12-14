@@ -1,0 +1,7 @@
+{
+  "components": [
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:health_boost", "amount": 0.1,"duration" : 20},
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:hunger", "amount": 0.1,"duration" : 20}
+  ],
+  "color" : [0.1, 0.0, -0.1, 0.0]
+}

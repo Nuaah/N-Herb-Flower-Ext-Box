@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.MenuProvider;
@@ -34,6 +35,8 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
     int progressCounter = 0;
 
     boolean hasItem = false;
+
+    String liquidType = "";
 
     Map<String,Float> constituents = new HashMap<>();
     Map<String,Integer> durations = new HashMap<>();
@@ -65,7 +68,67 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
     public void addWater(int amount){
         waterAmount += amount;
         if (waterAmount >= MAX_WATER) waterAmount = MAX_WATER;
-        if (waterAmount < 0) waterAmount = 0;
+        if (waterAmount <= 0) { //全部なし
+            System.out.println("RESET");
+            waterAmount = 0;
+            liquidType = "";
+
+            constituents.clear();
+            durations.clear();
+            waterColor.clear();
+        }
+
+        setChanged();
+        if (this.level != null && !this.level.isClientSide) {
+            // 周囲のクライアントに最新の状態を通知する
+            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), 3);
+            this.level.setBlockEntity(this); // ★ これが重要
+        }
+    }
+
+    public void addWater(int amount,String liquid){
+        if (waterAmount <= 0) {
+            if (liquid.equals("water")) waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
+            if (liquid.equals("ethanol")) waterColor = new ArrayList<>(Arrays.asList(0.4f, 0.6f, 1.0f, 1.0f));
+        }
+
+        if (liquidType.equals(liquid) || liquidType.isEmpty()){
+            waterAmount += amount;
+        }
+
+        System.out.println("WATER");
+        System.out.println(waterAmount);
+
+        if (waterAmount >= MAX_WATER) waterAmount = MAX_WATER;
+
+        if (waterAmount <= 0) {
+            waterAmount = 0;
+            liquidType = "";
+        } else {
+            liquidType = liquid;
+        }
+
+        if(amount > 0){ //薄める
+            for (Map.Entry<String, Float> entry : constituents.entrySet()) {
+                float calc = entry.getValue() * 0.6F;
+                if (calc < 0.1) constituents.remove(entry.getKey()); //薄すぎて消える
+                else constituents.put(entry.getKey(),calc);
+            }
+            for (Map.Entry<String, Integer> entry : durations.entrySet()) {
+                float calc = entry.getValue() * 0.6F;
+                durations.put(entry.getKey(),(int)calc);
+            }
+
+            List<Float> color = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
+            if (liquidType.equals("ethanol")) color = new ArrayList<>(Arrays.asList(0.4f, 0.6f, 1.0f, 1.0f));
+
+            for (int i = 0; i < waterColor.size(); i++) {//水の色
+                float calc = (waterColor.get(i) + color.get(i)) / 2.0F;
+                if (calc > 1.0F)calc = 1.0f;
+                if (calc < 0) calc = 0;
+                waterColor.set(i,calc);
+            }
+        }
 
         setChanged();
         if (this.level != null && !this.level.isClientSide) {
@@ -95,11 +158,17 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
     }
 
     public Map getConstituents(){
+        System.out.println(constituents);
         return constituents;
     }
 
     public Map getDurations(){
+        System.out.println(durations);
         return durations;
+    }
+
+    public String getLiquidType(){
+        return liquidType;
     }
 
     public void setHeating(boolean heat){
@@ -139,13 +208,17 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
             for (ConstituentsData.ComponentData c : data.components) {
                 String effect = c.id;
                 String soluble = c.soluble;
-                if (!soluble.equals("water")) break;
+
+                if ((soluble.equals("water"))){
+                    if(!liquidType.equals("water")) continue;
+                } else if ((soluble.equals("fat"))){
+                    if (!liquidType.equals("ethanol")) continue;
+                }
 
                 if (constituents.get(effect) != null){ //効果レベル
                     float calc = constituents.get(effect) + c.amount;
                     constituents.put(effect,calc);
-                    System.out.println("EFFECT");
-                    System.out.println(effect);
+
                 } else {
                     constituents.put(effect,c.amount);
                 }
@@ -153,12 +226,8 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
                 if (durations.get(effect) != null){ //効果時間
                     int calc = durations.get(effect) + c.duration;
                     durations.put(effect,calc);
-                    System.out.println(effect);
-                    System.out.println(calc);
                 } else {
                     durations.put(effect,c.duration);
-                    System.out.println(effect);
-                    System.out.println(c.duration);
                 }
 
                 for (int i = 0; i < waterColor.size(); i++) {//水の色
@@ -209,12 +278,16 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
         nbt.putInt("Progress",progress);
         nbt.putBoolean("Heating",heating);
         nbt.put("Items", itemHandler.serializeNBT());
+        nbt.putString("Liquid",liquidType);
 
         //成分保存
         CompoundTag mapTag = new CompoundTag();
         for (Map.Entry<String, Float> entry : constituents.entrySet()) {
             mapTag.putFloat(entry.getKey(), entry.getValue());
         }
+
+        System.out.println("CON");
+        System.out.println(constituents);
 
         nbt.put("Constituents", mapTag);
 
@@ -224,26 +297,35 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
             mapTag2.putFloat("WaterColor" + i,waterColor.get(i));
         }
 
+        System.out.println("WATER");
+        System.out.println(waterColor);
+
         nbt.put("WaterColors", mapTag2);
 
         CompoundTag mapTag3 = new CompoundTag();
         //効果時間
         for (Map.Entry<String, Integer> entry : durations.entrySet()) {
-            mapTag3.putFloat(entry.getKey(), entry.getValue());
+            mapTag3.putInt(entry.getKey(), entry.getValue());
         }
 
         nbt.put("Durations", mapTag3);
+
+        System.out.println(nbt.getCompound("Constituents"));
+        System.out.println(nbt.getCompound("Durations"));
     }
 
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
         System.out.println("LOAD");
+
         waterAmount = nbt.getInt("WaterAmount");
         progress = nbt.getInt("Progress");
         heating = nbt.getBoolean("Heating");
         itemHandler.deserializeNBT(nbt.getCompound("Items"));
+        liquidType = nbt.getString("Liquid");
 
+        constituents.clear();
         CompoundTag mapTag = nbt.getCompound("Constituents");
         for (String key : mapTag.getAllKeys()) {
             constituents.put(key, mapTag.getFloat(key));
@@ -254,6 +336,7 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
             waterColor.set(i,mapTag2.getFloat("WaterColor" + i));
         }
 
+        durations.clear();
         CompoundTag mapTag3 = nbt.getCompound("Durations");
         for (String key : mapTag3.getAllKeys()) {
             durations.put(key, mapTag3.getInt(key));
@@ -272,6 +355,11 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        load(pkt.getTag());
     }
 
     @Override

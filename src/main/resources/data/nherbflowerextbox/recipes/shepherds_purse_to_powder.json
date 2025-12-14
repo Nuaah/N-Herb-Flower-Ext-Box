@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_shepherds_purse"
+  },
+  "result": {
+    "item": "nherbflowerextbox:shepherds_purse_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "nherbflowerextbox:moonflower",
+              "Properties": {
+                "is_night": "false",
+                "lit": "false"
+              }
+            }
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 8,
+    "xz_spread": 12,
+    "y_spread": 10
+  }
+}

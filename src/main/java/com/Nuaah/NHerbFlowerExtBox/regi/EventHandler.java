@@ -1,31 +1,26 @@
 package com.Nuaah.NHerbFlowerExtBox.regi;
 
 import com.Nuaah.NHerbFlowerExtBox.main.NHerbFlowerExtBox;
-import com.mojang.blaze3d.shaders.Uniform;
+import com.Nuaah.NHerbFlowerExtBox.regi.shader.BloodshotShaderManager;
+import com.Nuaah.NHerbFlowerExtBox.regi.shader.MonochromeShaderManager;
+import com.Nuaah.NHerbFlowerExtBox.regi.shader.RainbowVisionShaderManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.Input;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.PostChain;
-import net.minecraft.client.renderer.PostPass;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.ScreenEvent;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-
-import java.util.List;
+import net.minecraftforge.network.NetworkDirection;
 
 @SuppressWarnings("removal")
 @Mod.EventBusSubscriber(modid = NHerbFlowerExtBox.MOD_ID, value = Dist.CLIENT)
@@ -134,126 +129,67 @@ public class EventHandler {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
-            if (mc.player == null) return; // プレイヤーがまだ生成されていない場合は何もしない
 
-            MonochromeShaderManager.tick();
+            // プレイヤーが存在しない場合は処理を中断
+            if (mc.player == null) {
+                // 念のためシェーダーを無効化
+                mc.gameRenderer.shutdownEffect();
+                return;
+            }
+
+            // --- 優先度チェック (高い順に実行) ---
+
+            // 優先度 1: グレースケール (Monochrome)
+            if (mc.player.hasEffect(NHerbFlowerExtBoxEffect.COLORBLIND.get())) {
+                // グレースケールを適用し、ここで処理を終了（下のシェーダーはチェックしない）
+                Minecraft.getInstance().gameRenderer.loadEffect(MonochromeShaderManager.SHADER);
+                return;
+            }
+
+            // 優先度 2: 虹視 (Rainbow Vision)
+            if (mc.player.hasEffect(NHerbFlowerExtBoxEffect.RAINBOW_VISION.get())) {
+                // ブラッドショットを適用し、ここで処理を終了
+                Minecraft.getInstance().gameRenderer.loadEffect(RainbowVisionShaderManager.SHADER_LOC);
+                return;
+            }
+
+            // 優先度 3: ブラッドショット (Bloodshot)
+            if (mc.player.hasEffect(NHerbFlowerExtBoxEffect.BLOODSHOT.get())) {
+                // ブラッドショットを適用し、ここで処理を終了
+                Minecraft.getInstance().gameRenderer.loadEffect(BloodshotShaderManager.SHADER);
+                return;
+            }
+
+            // どちらの条件も満たさない場合：
+            // 適用中のシェーダーがあれば無効化します
+            mc.gameRenderer.shutdownEffect();
         }
-//        if (event.phase != TickEvent.Phase.END) return;
-//
-//        Minecraft mc = Minecraft.getInstance();
-//        Player player = mc.player;
-//
-//        if (player == null || mc.isPaused()) return;
-//
-//        GameRenderer gameRenderer = mc.gameRenderer;
-//
-//        // ----------------------------------------------------
-//        // 1. 条件判定と強度の設定 (ここを調整)
-//        // ----------------------------------------------------
-//        // 例として、常に適用し、強度は 75% モノクロに設定します。
-//        boolean conditionMet = true;
-//        float targetGrayscale = 0.75f; // 0.0f (カラー) から 1.0f (完全モノクロ)
-//
-//        // ----------------------------------------------------
-//        // 2. シェーダーの適用と解除
-//        // ----------------------------------------------------
-//        if (conditionMet) {
-//            // まだ適用されていなければロード
-//            if (!isShaderActive) {
-//                gameRenderer.loadEffect(CUSTOM_GRAYSCALE_SHADER);
-//                isShaderActive = true;
-//            }
-//
-//            // 適用中なら強度を更新
-//            if (isShaderActive) {
-//                try {
-//                    // 1. 現在適用されているポストプロセスチェーンを取得
-//                    PostChain postChain = gameRenderer.currentEffect();
-//
-//                    if (postChain != null) {
-//                        // 2. リフレクションを使って 'passes' (シェーダーの工程リスト) を取得
-//                        // "passes" というフィールド名は難読化されている可能性があるため、本来はSRG名が必要ですが、
-//                        // 開発環境では "passes" で動くことが多いです。エラーが出る場合はSRG名("f_110009_")を使います。
-//                        List<PostPass> passes = ObfuscationReflectionHelper.getPrivateValue(
-//                            PostChain.class,
-//                            postChain,
-//                            "passes" // 開発環境用。本番でエラーが出るなら "f_110009_"
-//                        );
-//
-//                        // 3. 全てのパスを走査して、目的のUniformを探す
-//                        if (passes != null) {
-//                            for (PostPass pass : passes) {
-//                                // 各パスが持っているシェーダーインスタンスからUniformを取得
-//                                Uniform uniform = pass.getEffect().getUniform("GrayscaleAmount");
-//
-//                                if (uniform != null) {
-//                                    uniform.set(targetGrayscale);
-//                                    // 変更を適用する必要がある場合は upload などを呼ぶこともあるが、
-//                                    // set だけでも次の描画フレームで反映されることが多い
-//                                }
-//                            }
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    // リフレクション失敗時のエラーログ
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        } else {
-//            // 解除処理
-//            if (isShaderActive) {
-//                gameRenderer.shutdownEffect();
-//                isShaderActive = false;
-//            }
-//        }
     }
 
-//    // バニラ標準の「彩度を下げる」シェーダー
-//    private static final ResourceLocation DESATURATE_SHADER = new ResourceLocation("shaders/post/desaturate.json");
-//
-//    // シェーダーが現在適用されているかどうかのフラグ
-//    private static boolean isShaderActive = false;
-//
-//    @SubscribeEvent
-//    public static void onClientTick(TickEvent.ClientTickEvent event) {
-//        // ティックの終了時にのみ処理を行う
-//        if (event.phase != TickEvent.Phase.END) return;
-//
-//        Minecraft mc = Minecraft.getInstance();
-//        Player player = mc.player;
-//
-//        // プレイヤーが存在しない、またはポーズ中は処理しない
-//        if (player == null || mc.isPaused()) return;
-//
-//        GameRenderer gameRenderer = mc.gameRenderer;
-//
-//        // ----------------------------------------------------
-//        // 1. 条件判定 (ここをあなたの条件に変えてください)
-//        // ----------------------------------------------------
-//        // 例: プレイヤーがあなたのMODのエフェクトを持っている場合
-//        // boolean conditionMet = player.hasEffect(ModEffects.YOUR_EFFECT.get());
-//
-//        // テスト用: 常に true (常にモノクロになる)
-//        boolean conditionMet = true;
-//
-//        // ----------------------------------------------------
-//        // 2. シェーダーの適用と解除
-//        // ----------------------------------------------------
-//        if (conditionMet) {
-//            // 条件を満たしており、まだシェーダーが適用されていない場合
-//            if (!isShaderActive) {
-//                // シェーダーを読み込む
-//                gameRenderer.loadEffect(DESATURATE_SHADER);
-//                isShaderActive = true;
-//            }
-//        } else {
-//            // 条件を満たしておらず、シェーダーが適用中の場合
-//            if (isShaderActive) {
-//                // シェーダーを解除する
-//                gameRenderer.shutdownEffect();
-//                isShaderActive = false;
-//            }
-//        }
-//    }
+    @SubscribeEvent
+    public static void onLivingUpdate(LivingEvent.LivingTickEvent event) {
+        if (event.getEntity() instanceof Player player) {
+
+            // サーバー側でのみ実行 (クライアント側で実行すると同期問題が起こるため)
+            if (player.level().isClientSide) {
+                return;
+            }
+
+            if (!player.hasEffect(NHerbFlowerExtBoxEffect.SATIETY.get())) return;
+
+            FoodData foodData = player.getFoodData();
+
+            // FoodDataの内部メソッド setSaturation を使って、
+            // Saturationレベルを常に最大にリセットする
+            if (foodData.getSaturationLevel() <= 0) {
+                foodData.setSaturation(0.5F);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAddReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(ConstituentsJsonLoader.INSTANCE);
+    }
+
 }

@@ -24,7 +24,14 @@ public class NHerbFlowerExtBoxEffect {
             EFFECTS.register("anorexia", EffectAnorexia::new);
     public static final RegistryObject<MobEffect> SUFFOCATION =
             EFFECTS.register("suffocation", EffectSuffocation::new);
-
+    public static final RegistryObject<MobEffect> COLORBLIND =
+            EFFECTS.register("colorblind", EffectColorblind::new);
+    public static final RegistryObject<MobEffect> BLOODSHOT =
+            EFFECTS.register("bloodshot", EffectBloodshot::new);
+    public static final RegistryObject<MobEffect> SATIETY =
+            EFFECTS.register("satiety", EffectSatiety::new);
+    public static final RegistryObject<MobEffect> RAINBOW_VISION =
+            EFFECTS.register("rainbow_vision", EffectRainbowVision::new);
 
     public static void register(IEventBus eventBus) {
         EFFECTS.register(eventBus);

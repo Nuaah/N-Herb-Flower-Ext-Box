@@ -1,3 +1,66 @@
 {
-  "itemGroup.NHerbFlowerExtBox": "N Herb Flower Ext Box"
+  "itemGroup.NHerbFlowerExtBoxMain": "N Herb Flower Ext Box",
+
+  "item.nherbflowerextbox.custom_potion" : "Custom Potion",
+  "item.nherbflowerextbox.ethanol_potion" : "Ethanol Potion",
+
+  "block.nherbflowerextbox.bellflower" : "Bellflower",
+  "item.nherbflowerextbox.dried_bellflower" : "Dried Bellflower",
+  "item.nherbflowerextbox.bellflower_powder" : "Bellflower Powder",
+  "block.nherbflowerextbox.garden_marigold" : "Garden Marigold",
+  "item.nherbflowerextbox.dried_garden_marigold" : "Dried Garden Marigold",
+  "item.nherbflowerextbox.garden_marigold_powder" : "Garden Marigold Powder",
+  "block.nherbflowerextbox.shepherds_purse" : "Shepherds Purse",
+  "item.nherbflowerextbox.dried_shepherds_purse" : "Dried Shepherds Purse",
+  "item.nherbflowerextbox.shepherds_purse_powder" : "Shepherds Purse Powder",
+  "block.nherbflowerextbox.lavender" : "Lavender",
+  "item.nherbflowerextbox.dried_lavender" : "Dried Lavender",
+  "item.nherbflowerextbox.lavender_powder" : "Lavender Powder",
+  "block.nherbflowerextbox.ginseng" : "Ginseng",
+  "item.nherbflowerextbox.dried_ginseng" : "Dried Ginseng",
+  "item.nherbflowerextbox.ginseng_powder" : "Ginseng Powder",
+  "block.nherbflowerextbox.peppermint" : "Peppermint",
+  "item.nherbflowerextbox.dried_peppermint" : "Dried Peppermint",
+  "item.nherbflowerextbox.peppermint_powder" : "Peppermint Powder",
+  "block.nherbflowerextbox.moonflower" : "Moonflower",
+  "item.nherbflowerextbox.dried_moonflower" : "Dried Moonflower",
+  "item.nherbflowerextbox.moonflower_powder" : "Moonflower Powder",
+  "block.nherbflowerextbox.prickly_pear" : "Prickly Pear",
+  "item.nherbflowerextbox.dried_prickly_pear" : "Dried Prickly Pear",
+  "item.nherbflowerextbox.prickly_pear_powder" : "Prickly Pear Powder",
+  "block.nherbflowerextbox.peyote" : "Peyote",
+  "item.nherbflowerextbox.dried_peyote" : "Dried Peyote",
+  "item.nherbflowerextbox.peyote_powder" : "Peyote Powder",
+
+  "block.nherbflowerextbox.millstone" : "Millstone",
+  "block.nherbflowerextbox.clay_cauldron" : "Clay Cauldron",
+
+  "container.nherbflowerextbox.millstone" : "Millstone",
+  "container.nherbflowerextbox.clay_cauldron" : "Clay Cauldron",
+  "container.nherbflowerextbox.inventory" : "Inventory",
+
+  "tooltip.constituent.nherbflowerextbox.effect" : "Constituent",
+  "tooltip.part.nherbflowerextbox.flower" : "Flower:",
+  "tooltip.part.nherbflowerextbox.leaf" : "Leaf:",
+  "tooltip.part.nherbflowerextbox.stem" : "Stem:",
+  "tooltip.part.nherbflowerextbox.root" : "Root:",
+
+  "tooltip.clay_cauldron.nherbflowerextbox.nothing" : "Nothing",
+  "tooltip.clay_cauldron.nherbflowerextbox.water" : "Water",
+  "tooltip.clay_cauldron.nherbflowerextbox.ethanol" : "Ethanol",
+  "tooltip.clay_cauldron.nherbflowerextbox.component" : "Component",
+
+  "tooltip.constituent.nherbflowerextbox.healing" : "Healing",
+  "tooltip.constituent.nherbflowerextbox.resistance" : "resistance",
+
+  "effect.nherbflowerextbox.bleeding" : "Bleeding",
+  "effect.nherbflowerextbox.confusion" : "Confusion",
+  "effect.nherbflowerextbox.paralysis" : "Paralysis",
+  "effect.nherbflowerextbox.stagger" : "Stagger",
+  "effect.nherbflowerextbox.anorexia" : "Anorexia",
+  "effect.nherbflowerextbox.suffocation" : "Suffocation",
+  "effect.nherbflowerextbox.colorblind" : "ColorBlind",
+  "effect.nherbflowerextbox.bloodshot" : "Bloodshot",
+  "effect.nherbflowerextbox.satiety" : "Satiety",
+  "effect.nherbflowerextbox.rainbow_vision" : "Rainbow Vision"
 }

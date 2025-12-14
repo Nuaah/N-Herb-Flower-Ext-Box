@@ -67,7 +67,8 @@ public class BlockMillstone extends BaseEntityBlock {
                 }
             }
         }
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
+//        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     private void grindingParticle(BlockPos pos,Level level){
@@ -120,9 +121,11 @@ public class BlockMillstone extends BaseEntityBlock {
             if (be instanceof MillstoneEntity entity) {
                 if (!world.isClientSide) {
                     ItemStackHandler handler = entity.getItemHandler(); // あらかじめ getter を用意しておく
-                    ItemStack stack = handler.getStackInSlot(0);
-                    if (!stack.isEmpty()) {
-                        Containers.dropItemStack(world, pos.getX() + 0.5,pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                    for (int i = 0; i < handler.getSlots(); i++) {
+                        ItemStack stack = handler.getStackInSlot(i);
+                        if (!stack.isEmpty()) {
+                            Containers.dropItemStack(world, pos.getX() + 0.5,pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                        }
                     }
                 }
             }

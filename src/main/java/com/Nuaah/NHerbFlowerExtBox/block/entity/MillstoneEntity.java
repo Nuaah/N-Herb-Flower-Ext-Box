@@ -50,6 +50,9 @@ public class MillstoneEntity extends BlockEntity implements MenuProvider {
     }
 
     public void rotationMillstone(MillstoneEntity entity) {
+
+        if (level == null || level.isClientSide) return;
+
         SimpleContainer container = new SimpleContainer(1);
         rotation += 10.0F;
 
@@ -57,8 +60,14 @@ public class MillstoneEntity extends BlockEntity implements MenuProvider {
         {
             ItemStack input = itemHandler.getStackInSlot(i);
             ItemStack output = itemHandler.getStackInSlot(3 + i);
-            container.setItem(0, itemHandler.getStackInSlot(i));
-            progress[i] += 10;
+
+            // 入力アイテムがない場合はスキップ
+            if (input.isEmpty()) {
+                progress[i] = 0; // アイテムがないスロットの進捗はリセット
+                continue;
+            }
+
+            container.setItem(0, input); // inputをcontainerに設定
 
             Optional<MillstoneRecipe> opt = level.getRecipeManager().getRecipeFor(NHerbFlowerExtBoxRecipeType.MILLSTONE_GRINDING_TYPE.get(), container, level);
 
@@ -67,27 +76,38 @@ public class MillstoneEntity extends BlockEntity implements MenuProvider {
                 ItemStack result = recipe.getResult().copy();
                 int recipeProgress = recipe.getProcessingTime();
 
+                progress[i] += 10; // レシピがある場合のみ進捗を進める
+
                 if (progress[i] >= recipeProgress){ //完成
-                    if (output.isEmpty()) {
-                        output = result;
-                    } else if (ItemStack.isSameItemSameTags(output, result)) {
-                        output.grow(result.getCount());
-                    }
-                    itemHandler.setStackInSlot(3 + i,output);
-                    input.setCount(input.getCount()-1);
-                    if(input.getCount() <= 0){
-                        itemHandler.setStackInSlot(i,ItemStack.EMPTY);
+
+                    boolean canOutput = output.isEmpty() || (ItemStack.isSameItemSameTags(output, result) && output.getCount() + result.getCount() <= output.getMaxStackSize());
+
+                    if (canOutput) {
+
+                        if (output.isEmpty()) {
+                            output = result;
+                        } else {
+                            output.grow(result.getCount());
+                        }
+                        itemHandler.setStackInSlot(3 + i, output);
+
+                        input.shrink(1);
+
+                        progress[i] = 0;
                     }
                 }
+            } else {
+                progress[i] = 0;
             }
         }
-        if (rotation >= 360f) { //１周
+
+        // ... (rotation の処理はそのまま)
+        if (rotation >= 360f) {
             rotation = 0f;
         }
 
         this.setChanged();
         if (this.level != null && !this.level.isClientSide) {
-            // 周囲のクライアントに最新の状態を通知する
             this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), 3);
         }
     }

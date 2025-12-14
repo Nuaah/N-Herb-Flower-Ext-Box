@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "nherbflowerextbox:lavender"
+  },
+  "result": "nherbflowerextbox:dried_lavender",
+  "experience": 0.0,
+  "cookingtime": 200
+}

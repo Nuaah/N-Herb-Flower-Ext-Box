@@ -16,10 +16,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +29,7 @@ import java.util.List;
 @SuppressWarnings("removal")
 public class ItemCustomPotion extends Item {
     public ItemCustomPotion() {
-        super(new Properties());
+        super(new Properties().stacksTo(1));
     }
 
     public static List<CustomPotionData> getEffects(ItemStack stack) {
@@ -81,19 +78,25 @@ public class ItemCustomPotion extends Item {
                 CompoundTag effectTag = (CompoundTag)t;
 
                 String name = effectTag.getString("Name");
-                float potionLevel = effectTag.getInt("Level");
+                int potionLevel = (int)Math.floor(effectTag.getFloat("Level"));
                 int duration = effectTag.getInt("Duration");
+
+                if(potionLevel <= 0) continue;
 
                 ResourceLocation effectId = new ResourceLocation(name);
                 MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
 
                 // 自作効果を取得
-                MobEffectInstance instance = new MobEffectInstance(effect,duration,(int)Math.floor(potionLevel));
+                MobEffectInstance instance = new MobEffectInstance(effect,duration,potionLevel);
 //                MobEffectInstance effect = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, (int)potionLevel);
-                if (instance != null) {
+                if (instance != null ) {
                     entity.addEffect(instance);
                 }
             }
+        }
+
+        if (entity instanceof Player player){
+            if (!player.getAbilities().instabuild) player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GLASS_BOTTLE));
         }
 
         return super.finishUsingItem(stack, level, entity);
@@ -104,15 +107,18 @@ public class ItemCustomPotion extends Item {
         ListTag list = stack.getOrCreateTag().getList("CustomEffects", Tag.TAG_COMPOUND);
         System.out.println(list);
         for (Tag t : list) {
+
             CompoundTag effectTag = (CompoundTag) t;
+            System.out.println(effectTag);
 
             String name = effectTag.getString("Name");
-            Component effectComponent = Component.translatable("effect." + name.replace(':','.'));
-
-            float potionLevel = effectTag.getInt("Level");
+            int potionLevel = (int)Math.floor(effectTag.getFloat("Level"));
             int duration = effectTag.getInt("Duration");
 
-            Component constituentsComponent = Component.literal(" Lv." + (Math.floor(potionLevel)) + " (" + duration / 20 + "s)");
+            if(potionLevel <= 0) continue;
+
+            Component effectComponent = Component.translatable("effect." + name.replace(':','.'));
+            Component constituentsComponent = Component.literal(" Lv." + potionLevel + " (" + duration / 20 + "s)");
             Component result = Component.empty().append(effectComponent).append(constituentsComponent).withStyle(ChatFormatting.AQUA);
 
             tooltip.add(result);

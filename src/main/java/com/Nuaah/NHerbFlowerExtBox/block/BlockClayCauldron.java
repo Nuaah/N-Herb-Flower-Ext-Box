@@ -10,11 +10,14 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -30,6 +33,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,8 +48,6 @@ public class BlockClayCauldron extends BaseEntityBlock {
     protected static final int FLOOR_LEVEL = 4;
     private static final VoxelShape INSIDE = box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     protected static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(box(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), box(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), box(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), INSIDE), BooleanOp.ONLY_FIRST);
-
-    private boolean heating = false;
 
     public BlockClayCauldron() {
         super(Properties.of()
@@ -63,31 +65,64 @@ public class BlockClayCauldron extends BaseEntityBlock {
 
                     ItemStack heldItem = player.getItemInHand(hand);
                     if (heldItem.getItem() == Items.WATER_BUCKET) {  //水いれる
-                        be.addWater(1);
+                        be.addWater(1,"water");
                         if (!player.getAbilities().instabuild) {
                             // 手に持っている水バケツを空のバケツに直接置き換える
                             player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                         }
                     } else if (heldItem.getItem() == Items.BUCKET) { //水もらう
-                        be.addWater(-1);
+                        if (be.getWater() > 0){
+                            be.addWater(-1);
+                            if (!player.getAbilities().instabuild) {
+                                // 手に持っている水バケツを空のバケツに直接置き換える
+                                if (be.getLiquidType().equals("water")) player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
+                            }
+                        }
+
+                    } else if (heldItem.getItem() == NHerbFlowerExtBoxItems.ETHANOL_POTION.get()) {
+                        be.addWater(1,"ethanol");
                         if (!player.getAbilities().instabuild) {
-                            // 手に持っている水バケツを空のバケツに直接置き換える
-                            player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
+                            player.setItemInHand(hand, new ItemStack(Items.GLASS_BOTTLE));
                         }
                     } else if (heldItem.getItem() == Items.GLASS_BOTTLE) {
-                        ItemStack result = createCustomPotion(be);
-                        if (!result.isEmpty()) { //ポーション
-                            player.setItemInHand(hand,result);
+                        if (be.getWater() > 0){
+                            ItemStack result = createCustomPotion(be);
+                            if (!result.isEmpty()) { //ポーション
+                                be.addWater(-1);
+                                // プレイヤーに空瓶を与える
+                                if (!player.getInventory().add(result)) {
+                                    Block.popResource(world, pos, result); // 満杯時はドロップ
+                                }
 //                            world.playSound(null, player.blockPosition(), SoundEvents.NOTE_BLOCK_PLING, SoundSource.BLOCKS, 1.0F, 1.0F);
+                            } else {
+                                if (be.getLiquidType().equals("water")) {
+                                    ItemStack stack = new ItemStack(Items.POTION);
+                                    PotionUtils.setPotion(stack, Potions.WATER);
+                                    if (!player.getInventory().add(stack)) {
+                                        Block.popResource(world, pos, stack); // 満杯時はドロップ
+                                    }
+                                    heldItem.shrink(1);  // スタックサイズを1減らす
+                                    if (heldItem.isEmpty()) {
+                                        player.setItemInHand(hand, ItemStack.EMPTY);  // 0になったらスロットクリア
+                                    }
+                                } else if (be.getLiquidType().equals("ethanol")) {
+                                    ItemStack ethanol = new ItemStack(NHerbFlowerExtBoxItems.ETHANOL_POTION.get());
+                                    if (!player.getInventory().add(ethanol)) {
+                                        Block.popResource(world, pos, ethanol); // 満杯時はドロップ
+                                    }
+                                    heldItem.shrink(1);  // スタックサイズを1減らす
+                                    if (heldItem.isEmpty()) {
+                                        player.setItemInHand(hand, ItemStack.EMPTY);  // 0になったらスロットクリア
+                                    }
+                                }
+                            }
                         }
                     } else {
                         NetworkHooks.openScreen((ServerPlayer) player, be, pos);
                     }
                 }
             } else {
-                if (blockEntity instanceof ClayCauldronEntity be) {
-                    be.addWater(-10);
-                }
+
             }
         }
         return InteractionResult.sidedSuccess(world.isClientSide());
@@ -104,6 +139,8 @@ public class BlockClayCauldron extends BaseEntityBlock {
 
         System.out.println(constituents);
         CompoundTag effectTag = new CompoundTag();
+
+        if (constituents.isEmpty()) return ItemStack.EMPTY; //効果なし
 
         for (Map.Entry<String, Float> entry : constituents.entrySet()) {
             System.out.println(entry.getKey());
@@ -189,15 +226,17 @@ public class BlockClayCauldron extends BaseEntityBlock {
         //ドロップ処理
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity be = world.getBlockEntity(pos);
-//            if (be instanceof MillstoneEntity entity) {
-//                if (!world.isClientSide) {
-//                    ItemStackHandler handler = entity.getItemHandler(); // あらかじめ getter を用意しておく
-//                    ItemStack stack = handler.getStackInSlot(0);
-//                    if (!stack.isEmpty()) {
-//                        Containers.dropItemStack(world, pos.getX() + 0.5,pos.getY() + 0.5, pos.getZ() + 0.5, stack);
-//                    }
-//                }
-//            }
+            if (be instanceof ClayCauldronEntity entity) {
+                if (!world.isClientSide) {
+                    ItemStackHandler handler = entity.getItemHandler(); // あらかじめ getter を用意しておく
+                    for (int i = 0; i < handler.getSlots(); i++) {
+                        ItemStack stack = handler.getStackInSlot(i);
+                        if (!stack.isEmpty()) {
+                            Containers.dropItemStack(world, pos.getX() + 0.5,pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                        }
+                    }
+                }
+            }
             super.onRemove(state, world, pos, newState, moved);
         }
     }
@@ -210,7 +249,6 @@ public class BlockClayCauldron extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-//        return level.isClientSide ? null : createTickerHelper(type, NHerbFlowerExtBoxEntityTypes.MILLSTONE.get(), MillstoneEntity::tick);
         return createTickerHelper(type, NHerbFlowerExtBoxEntityTypes.CLAY_CAULDRON.get(), (lvl, pos, st, be) -> be.tick());
     }
 }

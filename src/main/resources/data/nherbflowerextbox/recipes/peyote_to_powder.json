@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_peyote"
+  },
+  "result": {
+    "item": "nherbflowerextbox:peyote_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

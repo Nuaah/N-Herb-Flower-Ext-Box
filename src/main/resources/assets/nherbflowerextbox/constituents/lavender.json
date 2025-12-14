@@ -1,0 +1,8 @@
+{
+  "components": [
+    {"soluble" : "fat","part" : "flower","id": "nherbflowerextbox.paralysis", "amount": 0.2,"duration" : 5},
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:poison", "amount": 0.1,"duration" : 10},
+    {"soluble" : "water","part" : "leaf","id": "minecraft:speed", "amount": 0.1,"duration" : 5}
+  ],
+  "color" : [0.1, -0.1, 0.1, 0.0]
+}

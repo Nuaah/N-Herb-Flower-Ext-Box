@@ -14,6 +14,7 @@ public class NHerbFlowerExtBoxEntityTypes {
 
     public static final RegistryObject<BlockEntityType<MillstoneEntity>> MILLSTONE = BLOCK_ENTITY_TYPES.register("millstone",() -> set(MillstoneEntity::new, NHerbFlowerExtBoxBlocks.Blocks.MILLSTONE.get()));
     public static final RegistryObject<BlockEntityType<ClayCauldronEntity>> CLAY_CAULDRON = BLOCK_ENTITY_TYPES.register("clay_cauldron",() -> set(ClayCauldronEntity::new, NHerbFlowerExtBoxBlocks.Blocks.CLAY_CAULDRON.get()));
+    public static final RegistryObject<BlockEntityType<MoonflowerEntity>> MOONFLOWER = BLOCK_ENTITY_TYPES.register("moonflower",() -> set(MoonflowerEntity::new, NHerbFlowerExtBoxBlocks.Blocks.MOONFLOWER.get()));
 
     private static <T extends BlockEntity> BlockEntityType<T> set (BlockEntityType.BlockEntitySupplier<T> entity, Block block){
         return BlockEntityType.Builder.of(entity,block).build(null);

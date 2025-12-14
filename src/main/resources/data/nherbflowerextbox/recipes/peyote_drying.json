@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "nherbflowerextbox:peyote"
+  },
+  "result": "nherbflowerextbox:dried_peyote",
+  "experience": 0.0,
+  "cookingtime": 200
+}

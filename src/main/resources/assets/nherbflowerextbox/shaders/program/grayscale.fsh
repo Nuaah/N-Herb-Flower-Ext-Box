@@ -1,5 +1,9 @@
 #version 150
 
+uniform mat4 ProjMat;
+uniform float InSize;
+uniform float OutSize;
+
 uniform sampler2D DiffuseSampler;
 in vec2 texCoord;
 out vec4 fragColor;

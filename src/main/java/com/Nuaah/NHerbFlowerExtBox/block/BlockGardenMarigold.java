@@ -22,8 +22,6 @@ public class BlockGardenMarigold extends BushBlock {
                 .ignitedByLava());
     }
 
-
-
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         var offset = state.getOffset(getter, pos);

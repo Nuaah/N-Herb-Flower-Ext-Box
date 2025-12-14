@@ -117,8 +117,16 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
             Map<String,Float> constituents = menu.getConstituents();
             Map<String,Integer> durations = menu.getDurations();
 
+            System.out.println(constituents);
+            System.out.println(durations);
+
             if (water > 0){
-                tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".water").withStyle(ChatFormatting.BLUE));
+                if (menu.getLiquidType().equals("water")){
+                    tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".water").withStyle(ChatFormatting.BLUE));
+                } else {
+                    tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".ethanol").withStyle(ChatFormatting.BLUE));
+                }
+
                 tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".component"));
             } else {
                 tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".nothing"));
@@ -134,7 +142,7 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
 
                 Component durationComponent = Component.literal("");
                 if (durationTicks > 0) {
-                    int duration = durationTicks / 20;
+                    float duration = durationTicks / 20.0F;
 
                     durationComponent = Component.literal(String.valueOf(duration));
                 }
@@ -153,48 +161,12 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
                 tooltip.add(line);
             }
 
-
-
             // まとめて tooltip に追加
             if (lines.isEmpty()){
 
             } else {
                 tooltip.addAll(lines);
             }
-
-//            List<Component> tooltip = new ArrayList<>();
-//            if (water > 0){
-//                tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".water").withStyle(ChatFormatting.BLUE));
-//                tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".component"));
-//            } else {
-//                tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".nothing"));
-//            }
-//
-//            Component component = Component.literal("");
-//            Component level = Component.literal("") ;
-//            Component durationComponent = Component.literal("") ;
-//
-//            Map<String,Float> constituents = menu.getConstituents();
-//            Map<String,Integer> durations = menu.getDurations();
-//
-//            for (Map.Entry<String, Float> entry : constituents.entrySet()){ //効果レベル
-//                String effect = entry.getKey();
-//                component = Component.translatable("effect." + effect.replace(':','.'));
-//                level = Component.literal(entry.getValue().toString());
-//            }
-//
-//            for (Map.Entry<String, Integer> entry : durations.entrySet()){ //効果時間
-//                if (entry.getValue() > 0){
-//                    float duration = entry.getValue() / 20.0F;
-//                    LocalTime time = LocalTime.of((int)(duration / 60.0F), (int)(duration % 60.0F));
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-//
-//                    durationComponent = Component.literal(time.format(formatter));
-//                }
-//            }
-//
-//            Component result = Component.empty().append(component).append(level).append("(").append(durationComponent).append(")");
-//            tooltip.add(result);
 
             // Tooltip を描画
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);

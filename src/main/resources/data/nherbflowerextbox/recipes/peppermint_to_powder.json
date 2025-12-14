@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_peppermint"
+  },
+  "result": {
+    "item": "nherbflowerextbox:peppermint_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

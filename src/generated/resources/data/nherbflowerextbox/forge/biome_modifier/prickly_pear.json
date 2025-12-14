@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_desert",
+  "features": "nherbflowerextbox:prickly_pear",
+  "step": "vegetal_decoration"
+}

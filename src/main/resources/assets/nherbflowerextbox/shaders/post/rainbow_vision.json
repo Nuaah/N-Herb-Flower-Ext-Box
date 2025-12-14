@@ -1,0 +1,15 @@
+{
+  "targets": [ "swap" ],
+  "passes": [
+    {
+      "name": "rainbow_vision",
+      "intarget": "minecraft:main",
+      "outtarget": "swap"
+    },
+    {
+      "name": "blit",
+      "intarget": "swap",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

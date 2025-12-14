@@ -5,7 +5,8 @@
   "refmap": "mixins.nherbflowerextbox.refmap.json",
   "mixins": [
     "LivingEntityMixin",
-    "EntityMixin"
+    "EntityMixin",
+    "PostChainMixin"
   ],
   "client": [],
   "injectors": {

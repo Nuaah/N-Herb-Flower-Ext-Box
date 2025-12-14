@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "is_night=true": {
+      "model": "nherbflowerextbox:block/moonflower"
+    },
+    "is_night=false": {
+      "model": "nherbflowerextbox:block/moonflower_close"
+    }
+  }
+}

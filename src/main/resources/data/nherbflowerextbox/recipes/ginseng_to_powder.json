@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_ginseng"
+  },
+  "result": {
+    "item": "nherbflowerextbox:ginseng_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}
