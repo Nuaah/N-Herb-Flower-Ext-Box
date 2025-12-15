@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:dandelion"
+  },
+  "result": "nherbflowerextbox:dried_dandelion",
+  "experience": 0.0,
+  "cookingtime": 200
+}

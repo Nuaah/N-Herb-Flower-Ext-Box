@@ -38,6 +38,20 @@ public class NHerbFlowerExtBoxMain {
         NHerbFlowerExtBoxItems.PRICKLY_PEAR_POWDER.get(),
         NHerbFlowerExtBoxItems.PEYOTE_POWDER.get(),
 
+        NHerbFlowerExtBoxItems.DRIED_CORNFLOWER.get(),
+        NHerbFlowerExtBoxItems.DRIED_POPPY.get(),
+        NHerbFlowerExtBoxItems.DRIED_DANDELION.get(),
+        NHerbFlowerExtBoxItems.DRIED_WITHER_ROSE.get(),
+        NHerbFlowerExtBoxItems.DRIED_LILY_OF_THE_VALLEY.get(),
+        NHerbFlowerExtBoxItems.DRIED_ALLIUM.get(),
+
+        NHerbFlowerExtBoxItems.CORNFLOWER_POWDER.get(),
+        NHerbFlowerExtBoxItems.POPPY_POWDER.get(),
+        NHerbFlowerExtBoxItems.DANDELION_POWDER.get(),
+        NHerbFlowerExtBoxItems.WITHER_ROSE_POWDER.get(),
+        NHerbFlowerExtBoxItems.LILY_OF_THE_VALLEY_POWDER.get(),
+        NHerbFlowerExtBoxItems.ALLIUM_POWDER.get(),
+
         NHerbFlowerExtBoxBlocks.BlockItems.MILLSTONE.get(),
         NHerbFlowerExtBoxBlocks.BlockItems.CLAY_CAULDRON.get(),
         NHerbFlowerExtBoxItems.ETHANOL_POTION.get(),

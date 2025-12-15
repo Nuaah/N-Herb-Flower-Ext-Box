@@ -31,4 +31,17 @@ public class NHerbFlowerExtBoxItems {
     public static final RegistryObject<Item> PEYOTE_POWDER = ITEMS.register("peyote_powder", ItemPeyotePowder::new);
     public static final RegistryObject<Item> DRIED_PRICKLY_PEAR = ITEMS.register("dried_prickly_pear", ItemDriedPricklyPear::new);
     public static final RegistryObject<Item> PRICKLY_PEAR_POWDER = ITEMS.register("prickly_pear_powder", ItemPricklyPearPowder::new);
+
+    public static final RegistryObject<Item> DRIED_WITHER_ROSE = ITEMS.register("dried_wither_rose", ItemDriedWitherRose::new);
+    public static final RegistryObject<Item> WITHER_ROSE_POWDER = ITEMS.register("wither_rose_powder", ItemWitherRosePowder::new);
+    public static final RegistryObject<Item> DRIED_CORNFLOWER = ITEMS.register("dried_cornflower", ItemDriedCornflower::new);
+    public static final RegistryObject<Item> CORNFLOWER_POWDER = ITEMS.register("cornflower_powder", ItemCornflowerPowder::new);
+    public static final RegistryObject<Item> DRIED_LILY_OF_THE_VALLEY = ITEMS.register("dried_lily_of_the_valley", ItemDriedLilyOfTheValley::new);
+    public static final RegistryObject<Item> LILY_OF_THE_VALLEY_POWDER = ITEMS.register("lily_of_the_valley_powder", ItemLilyOfTheValleyPowder::new);
+    public static final RegistryObject<Item> DRIED_DANDELION = ITEMS.register("dried_dandelion", ItemDriedDandelion::new);
+    public static final RegistryObject<Item> DANDELION_POWDER = ITEMS.register("dandelion_powder", ItemDandelionPowder::new);
+    public static final RegistryObject<Item> DRIED_POPPY = ITEMS.register("dried_poppy", ItemDriedPoppy::new);
+    public static final RegistryObject<Item> POPPY_POWDER = ITEMS.register("poppy_powder", ItemPoppyPowder::new);
+    public static final RegistryObject<Item> DRIED_ALLIUM = ITEMS.register("dried_allium", ItemDriedAllium::new);
+    public static final RegistryObject<Item> ALLIUM_POWDER = ITEMS.register("allium_powder", ItemAlliumPowder::new);
 }

@@ -1,0 +1,8 @@
+{
+  "components": [
+    {"soluble" : "fat","part" : "flower","id": "minecraft:fire_resistance", "amount": 0.1,"duration" : 10},
+    {"soluble" : "fat","part" : "root","id": "minecraft:wither", "amount": 0.1,"duration" : 5}
+
+  ],
+  "color" : [-0.05, -0.05, -0.05, 0.0]
+}

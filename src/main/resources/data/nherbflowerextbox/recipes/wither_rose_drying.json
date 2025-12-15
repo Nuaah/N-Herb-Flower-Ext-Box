@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:wither_rose"
+  },
+  "result": "nherbflowerextbox:dried_wither_rose",
+  "experience": 0.0,
+  "cookingtime": 200
+}

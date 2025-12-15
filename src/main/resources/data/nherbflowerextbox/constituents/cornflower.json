@@ -1,0 +1,8 @@
+{
+  "components": [
+    {"soluble" : "fat","part" : "stem","id": "nherbflowerextbox:bleeding", "amount": 0.1,"duration" : 10},
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:night_vision", "amount": 0.05,"duration" : 10}
+
+  ],
+  "color" : [0.0, 0.05, 0.05, 0.0]
+}

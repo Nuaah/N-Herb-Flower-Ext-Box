@@ -96,9 +96,6 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
             waterAmount += amount;
         }
 
-        System.out.println("WATER");
-        System.out.println(waterAmount);
-
         if (waterAmount >= MAX_WATER) waterAmount = MAX_WATER;
 
         if (waterAmount <= 0) {

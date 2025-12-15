@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:allium"
+  },
+  "result": "nherbflowerextbox:dried_allium",
+  "experience": 0.0,
+  "cookingtime": 200
+}

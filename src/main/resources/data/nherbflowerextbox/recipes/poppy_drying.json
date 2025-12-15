@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:poppy"
+  },
+  "result": "nherbflowerextbox:dried_poppy",
+  "experience": 0.0,
+  "cookingtime": 200
+}

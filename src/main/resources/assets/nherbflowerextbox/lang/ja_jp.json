@@ -32,6 +32,19 @@
   "item.nherbflowerextbox.dried_peyote" : "乾燥したペヨーテ",
   "item.nherbflowerextbox.peyote_powder" : "ペヨーテの粉末",
 
+  "item.nherbflowerextbox.dried_wither_rose" : "乾燥したウィザーローズ",
+  "item.nherbflowerextbox.dried_cornflower" : "乾燥したヤグルマギク",
+  "item.nherbflowerextbox.dried_lily_of_the_valley" : "乾燥したスズラン",
+  "item.nherbflowerextbox.dried_dandelion" : "乾燥したタンポポ",
+  "item.nherbflowerextbox.dried_poppy" : "乾燥したポピー",
+  "item.nherbflowerextbox.dried_allium" : "乾燥したアリウム",
+  "item.nherbflowerextbox.wither_rose_powder" : "ウィザーローズの粉末",
+  "item.nherbflowerextbox.cornflower_powder" : "ヤグルマギクの粉末",
+  "item.nherbflowerextbox.lily_of_the_valley_powder" : "スズランの粉末",
+  "item.nherbflowerextbox.dandelion_powder" : "タンポポの粉末",
+  "item.nherbflowerextbox.poppy_powder" : "ポピーの粉末",
+  "item.nherbflowerextbox.allium_powder" : "アリウムの粉末",
+
   "block.nherbflowerextbox.millstone" : "石臼",
   "block.nherbflowerextbox.clay_cauldron" : "土釜",
 

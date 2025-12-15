@@ -59,10 +59,13 @@ public class BlockClayCauldron extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!world.isClientSide()) {
+
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if(!player.isShiftKeyDown()){
                 if (blockEntity instanceof ClayCauldronEntity be) {
-
+                    double x = pos.getX() + 0.5;
+                    double y = pos.getY() + 0.5;
+                    double z = pos.getZ() + 0.5;
                     ItemStack heldItem = player.getItemInHand(hand);
                     if (heldItem.getItem() == Items.WATER_BUCKET) {  //水いれる
                         be.addWater(1,"water");
@@ -70,6 +73,9 @@ public class BlockClayCauldron extends BaseEntityBlock {
                             // 手に持っている水バケツを空のバケツに直接置き換える
                             player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                         }
+                        System.out.println("SOUND");
+
+                        world.playSound(null, x, y, z, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 1.0F, 1.0F);
                     } else if (heldItem.getItem() == Items.BUCKET) { //水もらう
                         if (be.getWater() > 0){
                             be.addWater(-1);
@@ -77,6 +83,7 @@ public class BlockClayCauldron extends BaseEntityBlock {
                                 // 手に持っている水バケツを空のバケツに直接置き換える
                                 if (be.getLiquidType().equals("water")) player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
                             }
+                            world.playSound(null, x, y, z, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS, 1.0F, 1.0F);
                         }
 
                     } else if (heldItem.getItem() == NHerbFlowerExtBoxItems.ETHANOL_POTION.get()) {
@@ -93,8 +100,8 @@ public class BlockClayCauldron extends BaseEntityBlock {
                                 if (!player.getInventory().add(result)) {
                                     Block.popResource(world, pos, result); // 満杯時はドロップ
                                 }
-//                            world.playSound(null, player.blockPosition(), SoundEvents.NOTE_BLOCK_PLING, SoundSource.BLOCKS, 1.0F, 1.0F);
-                            } else {
+                                world.playSound(null, x, y, z, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 1.0F, 1.0F);
+                            } else { //成分なし
                                 if (be.getLiquidType().equals("water")) {
                                     ItemStack stack = new ItemStack(Items.POTION);
                                     PotionUtils.setPotion(stack, Potions.WATER);
@@ -105,6 +112,8 @@ public class BlockClayCauldron extends BaseEntityBlock {
                                     if (heldItem.isEmpty()) {
                                         player.setItemInHand(hand, ItemStack.EMPTY);  // 0になったらスロットクリア
                                     }
+                                    be.addWater(-1);
+                                    world.playSound(null, x, y, z, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 1.0F, 1.0F);
                                 } else if (be.getLiquidType().equals("ethanol")) {
                                     ItemStack ethanol = new ItemStack(NHerbFlowerExtBoxItems.ETHANOL_POTION.get());
                                     if (!player.getInventory().add(ethanol)) {
@@ -114,6 +123,8 @@ public class BlockClayCauldron extends BaseEntityBlock {
                                     if (heldItem.isEmpty()) {
                                         player.setItemInHand(hand, ItemStack.EMPTY);  // 0になったらスロットクリア
                                     }
+                                    be.addWater(-1);
+                                    world.playSound(null, x, y, z, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 1.0F, 1.0F);
                                 }
                             }
                         }
@@ -145,18 +156,12 @@ public class BlockClayCauldron extends BaseEntityBlock {
         for (Map.Entry<String, Float> entry : constituents.entrySet()) {
             System.out.println(entry.getKey());
             effectTag.putString("Name", entry.getKey());        // "healing" "fire_resistance"など
-            effectTag.putFloat("Level", entry.getValue());         // 力
+            effectTag.putFloat("Level", Math.min(entry.getValue(),3));         // レベル　最大3
             effectTag.putInt("Duration", durations.get(entry.getKey()));         // 効果時間
             effectList.add(effectTag.copy());
         }
 
         System.out.println(effectTag);
-
-//        for (Map.Entry<String, Integer> entry : durations.entrySet()) {
-//            effectTag.putInt("Duration", entry.getValue());         // 効果時間
-//        }
-//
-//        effectList.add(effectTag);
 
         CompoundTag mapTag = new CompoundTag();
         //水の色
@@ -194,8 +199,6 @@ public class BlockClayCauldron extends BaseEntityBlock {
     public void neighborChanged(BlockState p_60509_, Level level, BlockPos pos, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
         super.neighborChanged(p_60509_, level, pos, p_60512_, p_60513_, p_60514_);
 
-        System.out.println("neighbor");
-
         BlockPos below = pos.below();
         BlockState stateBelow = level.getBlockState(below);
 
@@ -208,10 +211,8 @@ public class BlockClayCauldron extends BaseEntityBlock {
                 stateBelow.is(Blocks.CANDLE);
 
         if (!level.isClientSide()) {
-            System.out.println(isFire);
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof ClayCauldronEntity be) {
-                System.out.println("CALL");
+            if (blockEntity instanceof ClayCauldronEntity be) { //熱源
                 if (isFire) {
                     be.setHeating(true);
                 } else {

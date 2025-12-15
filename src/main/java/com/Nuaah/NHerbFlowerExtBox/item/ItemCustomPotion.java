@@ -83,12 +83,16 @@ public class ItemCustomPotion extends Item {
 
                 if(potionLevel <= 0) continue;
 
+                potionLevel -= 1; //0スタート
+
                 ResourceLocation effectId = new ResourceLocation(name);
                 MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
 
+                System.out.println("effect");
+                System.out.println(effect);
                 // 自作効果を取得
                 MobEffectInstance instance = new MobEffectInstance(effect,duration,potionLevel);
-//                MobEffectInstance effect = new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, (int)potionLevel);
+                System.out.println(instance);
                 if (instance != null ) {
                     entity.addEffect(instance);
                 }

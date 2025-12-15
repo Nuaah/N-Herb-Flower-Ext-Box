@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:cornflower"
+  },
+  "result": "nherbflowerextbox:dried_cornflower",
+  "experience": 0.0,
+  "cookingtime": 200
+}
