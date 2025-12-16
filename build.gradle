@@ -175,10 +175,20 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
+
+    filesMatching(['mixins.nherbflowerextbox.json', "mixins.nherbflowerextbox.refmap.json"]) {
+        // 例: パッケージ名をリマップ情報に追加
+        expand([
+                "refmap": "mixins.nherbflowerextbox.refmap.json"
+        ])
+    }
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
 tasks.named('jar', Jar).configure {
+
+    from sourceSets.main.output
+
     manifest {
         attributes([
                 'Specification-Title'     : mod_id,

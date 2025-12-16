@@ -1,6 +1,7 @@
 {
   "required": true,
-  "package": "com.Nuaah.nherbflowerextbox.mixin",
+  "minVersion": "0.8",
+  "package": "com.Nuaah.NHerbFlowerExtBox.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "mixins.nherbflowerextbox.refmap.json",
   "mixins": [
