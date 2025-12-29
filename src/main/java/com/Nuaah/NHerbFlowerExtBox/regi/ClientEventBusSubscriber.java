@@ -2,9 +2,7 @@ package com.Nuaah.NHerbFlowerExtBox.regi;
 
 import com.Nuaah.NHerbFlowerExtBox.NHerbFlowerExtBoxBlocks;
 import com.Nuaah.NHerbFlowerExtBox.NHerbFlowerExtBoxItems;
-import com.Nuaah.NHerbFlowerExtBox.block.entity.ClayCauldronRenderer;
-import com.Nuaah.NHerbFlowerExtBox.block.entity.MillstoneRenderer;
-import com.Nuaah.NHerbFlowerExtBox.block.entity.NHerbFlowerExtBoxEntityTypes;
+import com.Nuaah.NHerbFlowerExtBox.block.entity.*;
 import com.Nuaah.NHerbFlowerExtBox.gui.container.NHerbFlowerExtBoxContainerTypes;
 import com.Nuaah.NHerbFlowerExtBox.gui.screen.ClayCauldronScreen;
 import com.Nuaah.NHerbFlowerExtBox.gui.screen.MillstoneScreen;
@@ -41,6 +39,11 @@ public class ClientEventBusSubscriber {
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.MOONFLOWER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.PRICKLY_PEAR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.PEYOTE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.PALGANT.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.ECLATY.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.FIREFLIES_MUSHROOM.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.AURORA_MUSHROOM.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POMIUM.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_BELLFLOWER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_GARDEN_MARIGOLD.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_SHEPHERDS_PURSE.get(), RenderType.cutout());
@@ -50,6 +53,13 @@ public class ClientEventBusSubscriber {
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_MOONFLOWER.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_PRICKLY_PEAR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_PEYOTE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_PALGANT.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_ECLATY.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_FIREFLIES_MUSHROOM.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_AURORA_MUSHROOM.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.POTTED_POMIUM.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.JEWELED_BRANCH_LEAVE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(NHerbFlowerExtBoxBlocks.Blocks.JEWELED_BRANCH_SAPLING.get(), RenderType.cutout());
         blockScreenRegister();
     }
 
@@ -73,10 +83,15 @@ public class ClientEventBusSubscriber {
             ClayCauldronRenderer::new
         );
 
-//        event.registerBlockEntityRenderer(
-//            NHerbFlowerExtBoxEntityTypes.MOONFLOWER.get(),
-//            MoonflowerRenderer::new
-//        );
+        event.registerBlockEntityRenderer(
+                NHerbFlowerExtBoxEntityTypes.FIREFLIES_MUSHROOM.get(),
+                FirefliesMushroomRenderer::new
+        );
+
+        event.registerBlockEntityRenderer(
+                NHerbFlowerExtBoxEntityTypes.AURORA_MUSHROOM.get(),
+                AuroraMushroomRenderer::new
+        );
     }
 
     private static void blockScreenRegister(){
@@ -91,7 +106,6 @@ public class ClientEventBusSubscriber {
         event.register((stack, tintIndex) -> {
 
             if (tintIndex == 0) {
-
                 List<Float> waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
                 CompoundTag tag = stack.getTag();
                 CompoundTag mapTag = tag.getCompound("WaterColors");
@@ -114,6 +128,32 @@ public class ClientEventBusSubscriber {
             // layer0 はそのままの色
             return 0xFFFFFFFF;
         }, NHerbFlowerExtBoxItems.CUSTOM_POTION.get());
+
+        event.register((stack, tintIndex) -> {
+
+            if (tintIndex == 0) {
+                List<Float> waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
+                CompoundTag tag = stack.getTag();
+                CompoundTag mapTag = tag.getCompound("WaterColors");
+                for (int i = 0; i < 3; i++) {
+                    waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+                }
+
+                float rF = waterColor.get(0);
+                float gF = waterColor.get(1);
+                float bF = waterColor.get(2);
+
+                int r = (int)(rF * 255);
+                int g = (int)(gF * 255);
+                int b = (int)(bF * 255);
+
+                int color = (r << 16) | (g << 8) | b;
+                return color;
+            }
+
+            // layer0 はそのままの色
+            return 0xFFFFFFFF;
+        }, NHerbFlowerExtBoxItems.CUSTOM_SPLASH_POTION.get());
 
         event.register((stack, tintIndex) -> {
 

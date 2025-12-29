@@ -27,7 +27,7 @@ public class BlockBellflower extends BushBlock {
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(OffsetType.XZ)
-                .ignitedByLava());
+            .ignitedByLava());
     }
 
     @Override

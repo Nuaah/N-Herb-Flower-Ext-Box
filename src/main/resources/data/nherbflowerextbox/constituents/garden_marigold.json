@@ -1,9 +1,9 @@
 {
   "name": "garden_marigold",
   "components": [
-    {"soluble" : "water", "part" : "flower" ,"id": "minecraft:absorption", "amount": 0.2,"duration" : 10  },
+    {"soluble" : "water", "part" : "flower" ,"id": "minecraft:absorption", "amount": 0.2,"duration" : 30  },
     {"soluble" : "water", "part" : "flower" ,"id": "minecraft:nausea", "amount": 0.1,"duration" : 10  },
-    {"soluble" : "fat", "part" : "leaf" ,"id": "minecraft:haste", "amount": 0.2,"duration" : 30  }
+    {"soluble" : "fat", "part" : "leaf" ,"id": "minecraft:haste", "amount": 0.2,"duration" : 40  }
   ],
   "color" : [0.1, 0.05, -0.1, 0.0]
 }

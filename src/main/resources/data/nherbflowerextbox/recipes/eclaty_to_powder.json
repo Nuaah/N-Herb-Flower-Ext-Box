@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_eclaty"
+  },
+  "result": {
+    "item": "nherbflowerextbox:eclaty_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

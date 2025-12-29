@@ -17,6 +17,11 @@ public class NHerbFlowerExtBoxMain {
         NHerbFlowerExtBoxBlocks.BlockItems.MOONFLOWER.get(),
         NHerbFlowerExtBoxBlocks.BlockItems.PRICKLY_PEAR.get(),
         NHerbFlowerExtBoxBlocks.BlockItems.PEYOTE.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.PALGANT.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.ECLATY.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.FIREFLIES_MUSHROOM.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.AURORA_MUSHROOM.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.POMIUM.get(),
 
         NHerbFlowerExtBoxItems.DRIED_BELLFLOWER.get(),
         NHerbFlowerExtBoxItems.DRIED_GARDEN_MARIGOLD.get(),
@@ -27,6 +32,11 @@ public class NHerbFlowerExtBoxMain {
         NHerbFlowerExtBoxItems.DRIED_MOONFLOWER.get(),
         NHerbFlowerExtBoxItems.DRIED_PRICKLY_PEAR.get(),
         NHerbFlowerExtBoxItems.DRIED_PEYOTE.get(),
+        NHerbFlowerExtBoxItems.DRIED_PALGANT.get(),
+        NHerbFlowerExtBoxItems.DRIED_ECLATY.get(),
+        NHerbFlowerExtBoxItems.DRIED_FIREFLIES_MUSHROOM.get(),
+        NHerbFlowerExtBoxItems.DRIED_AURORA_MUSHROOM.get(),
+        NHerbFlowerExtBoxItems.DRIED_POMIUM.get(),
 
         NHerbFlowerExtBoxItems.BELLFLOWER_POWDER.get(),
         NHerbFlowerExtBoxItems.GARDEN_MARIGOLD_POWDER.get(),
@@ -37,6 +47,11 @@ public class NHerbFlowerExtBoxMain {
         NHerbFlowerExtBoxItems.MOONFLOWER_POWDER.get(),
         NHerbFlowerExtBoxItems.PRICKLY_PEAR_POWDER.get(),
         NHerbFlowerExtBoxItems.PEYOTE_POWDER.get(),
+        NHerbFlowerExtBoxItems.PALGANT_POWDER.get(),
+        NHerbFlowerExtBoxItems.ECLATY_POWDER.get(),
+        NHerbFlowerExtBoxItems.FIREFLIES_MUSHROOM_POWDER.get(),
+        NHerbFlowerExtBoxItems.AURORA_MUSHROOM_POWDER.get(),
+        NHerbFlowerExtBoxItems.POMIUM_POWDER.get(),
 
         NHerbFlowerExtBoxItems.DRIED_CORNFLOWER.get(),
         NHerbFlowerExtBoxItems.DRIED_POPPY.get(),
@@ -54,6 +69,14 @@ public class NHerbFlowerExtBoxMain {
 
         NHerbFlowerExtBoxBlocks.BlockItems.MILLSTONE.get(),
         NHerbFlowerExtBoxBlocks.BlockItems.CLAY_CAULDRON.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.SAP_EXTRACTOR.get(),
         NHerbFlowerExtBoxItems.ETHANOL_POTION.get(),
+        NHerbFlowerExtBoxItems.CUSTOM_SPLASH_POTION.get(),
+
+        NHerbFlowerExtBoxBlocks.BlockItems.STRIPPED_JEWELED_BRANCH_LOG.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.JEWELED_BRANCH_LOG.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.JEWELED_BRANCH_LEAVE.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.JEWELED_BRANCH_SAPLING.get(),
+        NHerbFlowerExtBoxBlocks.BlockItems.JEWELED_BRANCH_PLANKS.get()
     };
 }

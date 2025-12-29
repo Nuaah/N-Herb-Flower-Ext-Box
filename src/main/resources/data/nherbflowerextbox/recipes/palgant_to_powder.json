@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_palgant"
+  },
+  "result": {
+    "item": "nherbflowerextbox:palgant_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

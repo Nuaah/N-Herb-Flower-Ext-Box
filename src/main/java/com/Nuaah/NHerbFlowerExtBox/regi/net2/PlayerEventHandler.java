@@ -16,7 +16,7 @@ public class PlayerEventHandler {
         ServerPlayer player = (ServerPlayer) event.getEntity();
         Map<String, ConstituentsData> dataToSend = ConstituentsManager.getServerData();
         // send to single player
-        NHerbFlowerExtBox.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player),
+        NetworkHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player),
                 new PacketSyncConstituents(dataToSend));
     }
 }

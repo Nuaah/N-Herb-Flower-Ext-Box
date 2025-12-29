@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nherbflowerextbox:block/jeweled_branch_log_top",
+    "side": "nherbflowerextbox:block/jeweled_branch_log"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "components": [
+    {"soluble" : "water","part" : "stem","id": "minecraft:poison", "amount": 0.02,"duration" : 1}
+  ],
+  "color" : [0.01, 0.01, 0, 0.0]
+}

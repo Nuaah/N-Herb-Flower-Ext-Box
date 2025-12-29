@@ -3,6 +3,7 @@ package com.Nuaah.NHerbFlowerExtBox.gui.container;
 import com.Nuaah.NHerbFlowerExtBox.block.entity.ClayCauldronEntity;
 import com.Nuaah.NHerbFlowerExtBox.gui.slot.ClayCauldronSlot;
 import com.Nuaah.NHerbFlowerExtBox.gui.slot.MillstoneSlot;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -45,6 +46,14 @@ public class ClayCauldronMenu extends AbstractContainerMenu {
         for (int col = 0; col < 9; ++col) {
             this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));
         }
+    }
+
+    public BlockPos getBlockPos(){
+        return blockEntity.getBlockPos();
+    }
+
+    public boolean getEvaporate(){
+        return blockEntity.getEvaporate();
     }
 
     public int getWater() {

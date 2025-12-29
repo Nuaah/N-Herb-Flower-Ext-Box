@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_pomium"
+  },
+  "result": {
+    "item": "nherbflowerextbox:pomium_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

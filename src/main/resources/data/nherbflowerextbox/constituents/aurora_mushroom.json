@@ -1,0 +1,7 @@
+{
+  "components": [
+    {"soluble" : "water","part" : "stem","id": "minecraft:regeneration", "amount": 0.2,"duration" : 30},
+    {"soluble" : "water","part" : "stem","id": "nherbflowerextbox:rainbow_vision", "amount": 0.1,"duration" : 30}
+  ],
+  "color" : [0.1, 0.1, -0.1, 0.0]
+}

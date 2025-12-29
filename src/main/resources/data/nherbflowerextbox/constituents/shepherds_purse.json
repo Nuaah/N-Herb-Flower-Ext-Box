@@ -1,6 +1,6 @@
 {
   "components": [
-    {"soluble" : "water","part" : "leaf","id": "nherbflowerextbox:satiety", "amount": 0.2,"duration" : 10}
+    {"soluble" : "water","part" : "leaf","id": "nherbflowerextbox:satiety", "amount": 0.2,"duration" : 20}
   ],
   "color" : [0.1, 0.1, 0.1, 0.0]
 }

@@ -36,7 +36,7 @@ public class ConstituentsJsonLoader extends SimpleJsonResourceReloadListener {
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> jsonMap, ResourceManager resourceManager, ProfilerFiller profiler) {
+    public void apply(Map<ResourceLocation, JsonElement> jsonMap, ResourceManager resourceManager, ProfilerFiller profiler) {
 
         CONSTITUENTS_DATA.clear();
 
@@ -121,6 +121,31 @@ public class ConstituentsJsonLoader extends SimpleJsonResourceReloadListener {
             if (location.getPath().equals("allium")) {
                 CONSTITUENTS_DATA.put("allium_powder", data);
                 CONSTITUENTS_DATA.put("dried_allium", data);
+            }
+
+            if (location.getPath().equals("palgant")) {
+                CONSTITUENTS_DATA.put("palgant_powder", data);
+                CONSTITUENTS_DATA.put("dried_palgant", data);
+            }
+
+            if (location.getPath().equals("eclaty")) {
+                CONSTITUENTS_DATA.put("eclaty_powder", data);
+                CONSTITUENTS_DATA.put("dried_eclaty", data);
+            }
+
+            if (location.getPath().equals("fireflies_mushroom")) {
+                CONSTITUENTS_DATA.put("fireflies_mushroom_powder", data);
+                CONSTITUENTS_DATA.put("dried_fireflies_mushroom", data);
+            }
+
+            if (location.getPath().equals("aurora_mushroom")) {
+                CONSTITUENTS_DATA.put("aurora_mushroom_powder", data);
+                CONSTITUENTS_DATA.put("dried_aurora_mushroom", data);
+            }
+
+            if (location.getPath().equals("pomium")) {
+                CONSTITUENTS_DATA.put("pomium_powder", data);
+                CONSTITUENTS_DATA.put("dried_pomium", data);
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.Nuaah.NHerbFlowerExtBox.regi.net2;
 
 import com.Nuaah.NHerbFlowerExtBox.regi.ConstituentsData;
+import com.Nuaah.NHerbFlowerExtBox.regi.ConstituentsJsonLoader;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import net.minecraft.network.FriendlyByteBuf;
@@ -35,11 +36,24 @@ public class PacketSyncConstituents {
 
     public static void handle(PacketSyncConstituents msg, Supplier<NetworkEvent.Context> ctxSupplier) {
         NetworkEvent.Context ctx = ctxSupplier.get();
+
+        // ★ デバッグログを追加 (クライアント側で表示されるはず)
+        System.out.println("PacketSyncConstituents: Received packet. Data size: " + msg.data.size());
+
         // クライアントスレッドで処理
         ctx.enqueueWork(() -> {
+            // ★ デバッグログを追加 (クライアント側で表示されるはず)
+            System.out.println("PacketSyncConstituents: Applying data to ConstituentsManager.");
+
             try {
-                // クライアント側のマネージャにデータをセット
                 ConstituentsManager.setClientData(msg.data);
+
+                ConstituentsJsonLoader.CONSTITUENTS_DATA.clear();
+                ConstituentsJsonLoader.CONSTITUENTS_DATA.putAll(msg.data);
+
+                // ★ セット後のデータサイズを確認 (クライアント側で表示されるはず)
+                System.out.println("PacketSyncConstituents: Client data set. New size: " + ConstituentsManager.getClientData().size());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

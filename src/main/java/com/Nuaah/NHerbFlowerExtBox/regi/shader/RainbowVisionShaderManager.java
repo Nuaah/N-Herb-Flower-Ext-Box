@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,7 +44,8 @@ public class RainbowVisionShaderManager {
 
         // エフェクトを持っているかチェック
         if (mc.player.hasEffect(NHerbFlowerExtBoxEffect.RAINBOW_VISION.get())) {
-            renderShader(mc, event.getPartialTick());
+            int level = mc.player.getEffect(NHerbFlowerExtBoxEffect.RAINBOW_VISION.get()).getAmplifier();
+            renderShader(mc, event.getPartialTick(),level);
         } else {
             // エフェクトがないならシェーダーを解放
             cleanup();
@@ -53,7 +55,7 @@ public class RainbowVisionShaderManager {
     /**
      * シェーダーのロード、更新、描画を行うメイン処理
      */
-    private static void renderShader(Minecraft mc, float partialTicks) {
+    private static void renderShader(Minecraft mc, float partialTicks,int level) {
         // 1. シェーダーが未ロード、または画面サイズが変わった場合に再ロード
         if (shaderChain == null || mc.getWindow().getWidth() != lastWidth || mc.getWindow().getHeight() != lastHeight) {
             loadShader(mc);
@@ -62,7 +64,7 @@ public class RainbowVisionShaderManager {
         if (shaderChain != null) {
             try {
                 // 2. ユニフォーム変数の更新 (ここで時間を渡す！)
-                updateUniforms(mc, partialTicks);
+                updateUniforms(mc, partialTicks * level);
 
                 // 3. シェーダーの実行
                 shaderChain.process(partialTicks);
@@ -104,7 +106,6 @@ public class RainbowVisionShaderManager {
     private static void updateUniforms(Minecraft mc, float partialTicks) {
         if (shaderChain == null) return;
 
-        // --- 【修正部分】 Mixinを通じて passes リストにアクセス ---
         // shaderChainをMixinインターフェースにキャスト
         PostChainMixin accessor = (PostChainMixin) shaderChain;
         List<PostPass> passes = accessor.getPasses();
@@ -114,14 +115,12 @@ public class RainbowVisionShaderManager {
 
         // JSONの最初のパスを取得
         PostPass shaderPass = passes.get(0);
-        // --------------------------------------------------------
+        // -----------------------------------------------------
+        //        // Uniform変数の取得---
 
-        // Uniform変数の取得
         Uniform timeUniform = shaderPass.getEffect().getUniform("u_Time");
 
         if (timeUniform != null) {
-
-            // --- 【ここから修正部分】シェーダープログラムの一時的なバインド ---
 
             // 1. シェーダープログラムのIDを取得 (Program object)
             int programId = shaderPass.getEffect().getId();
@@ -140,8 +139,6 @@ public class RainbowVisionShaderManager {
             // 5. プログラムを非アクティブ化 (解放)
             // 0を渡すことで非アクティブな状態に戻します
             GlStateManager._glUseProgram(0);
-
-            // --- 【修正部分ここまで】 ---
         }
     }
 

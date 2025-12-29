@@ -1,8 +1,8 @@
 {
   "components": [
-    {"soluble" : "fat","part" : "stem","id": "nherbflowerextbox:satiety", "amount": 0.1,"duration" : 10},
-    {"soluble" : "fat","part" : "leaf","id": "minecraft:instant_health", "amount": 0.1,"duration" : 10}
-
+    {"soluble" : "fat","part" : "stem","id": "nherbflowerextbox:satiety", "amount": 0.1,"duration" : 30},
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:instant_health", "amount": 0.1,"duration" : 10},
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:weakness", "amount": 0.05,"duration" : 10}
   ],
   "color" : [0.1, 0.0, -0.1, 0.0]
 }

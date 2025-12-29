@@ -1,26 +1,44 @@
 package com.Nuaah.NHerbFlowerExtBox.regi;
 
 import com.Nuaah.NHerbFlowerExtBox.main.NHerbFlowerExtBox;
+import com.Nuaah.NHerbFlowerExtBox.regi.capability.NHerbFlowerExtBoxCapabilities;
 import com.Nuaah.NHerbFlowerExtBox.regi.shader.BloodshotShaderManager;
 import com.Nuaah.NHerbFlowerExtBox.regi.shader.MonochromeShaderManager;
 import com.Nuaah.NHerbFlowerExtBox.regi.shader.RainbowVisionShaderManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.Input;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Map;
 
 @SuppressWarnings("removal")
 @Mod.EventBusSubscriber(modid = NHerbFlowerExtBox.MOD_ID, value = Dist.CLIENT)
@@ -64,7 +82,8 @@ public class EventHandler {
                 // キーを離している場合：慣性を適用して減速させる
                 if (Math.abs(inertiaForward) > CUTOFF) {
                     // 現在の慣性から減速率を引く（符号に合わせて引く）
-                    inertiaForward -= Math.signum(inertiaForward) * DECAY_RATE;
+                    int level = player.getEffect(NHerbFlowerExtBoxEffect.STAGGER.get()).getAmplifier();
+                    inertiaForward -= Math.signum(inertiaForward) * (DECAY_RATE - level * 0.01F);
 
                     // プレイヤーの入力値を慣性値で上書きする
                     input.forwardImpulse = inertiaForward;
@@ -166,26 +185,46 @@ public class EventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void onLivingUpdate(LivingEvent.LivingTickEvent event) {
-        if (event.getEntity() instanceof Player player) {
 
-            // サーバー側でのみ実行 (クライアント側で実行すると同期問題が起こるため)
-            if (player.level().isClientSide) {
-                return;
-            }
 
-            if (!player.hasEffect(NHerbFlowerExtBoxEffect.SATIETY.get())) return;
+//    @SubscribeEvent
+//    public static void onAttackEntity(AttackEntityEvent event) {
+//        Player player = event.getEntity();
+//        if (!(event.getTarget() instanceof LivingEntity target)) return;
+//
+//        ItemStack item = player.getMainHandItem();
+//
+//        if (player instanceof ServerPlayer serverPlayer) {
+//            serverPlayer.sendSystemMessage(Component.literal("LIVI"));
+//        }
+//        System.out.println("ON");
+//
+//        item.getCapability(NHerbFlowerExtBoxCapabilities.POTION_CAP).ifPresent(cap -> {
+//            int level = 0;
+//            int duration = 0;
+//
+//            if (player instanceof ServerPlayer serverPlayer) {
+//                serverPlayer.sendSystemMessage(Component.literal("LIVING攻撃検知: "));
+//            }
+//
+//            System.out.println("ATTACK");
+//
+//            for (Map.Entry<String, Float> entry : cap.getConstituents().entrySet()) {
+//                level = (int)Math.floor(entry.getValue());
+//                duration = cap.getDurations().get(entry.getKey()) / 20;
+//
+//                if ((level-1) >= 0) {
+//                    System.out.println("EEEEE");
+//                    ResourceLocation effectId = new ResourceLocation(entry.getKey());
+//                    MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
+//                    MobEffectInstance instance = new MobEffectInstance(effect, duration * 20, level-1);
+//                    target.addEffect(instance);
+//                }
+//            }
+//        });
+//    }
 
-            FoodData foodData = player.getFoodData();
 
-            // FoodDataの内部メソッド setSaturation を使って、
-            // Saturationレベルを常に最大にリセットする
-            if (foodData.getSaturationLevel() <= 0) {
-                foodData.setSaturation(0.5F);
-            }
-        }
-    }
 
     @SubscribeEvent
     public static void onAddReloadListeners(AddReloadListenerEvent event) {

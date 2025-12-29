@@ -14,14 +14,17 @@ public class ConstituentsManager {
     // クライアント側が受け取ったデータ（クライアントのみ）
     private static Map<String, ConstituentsData> clientData = new HashMap<>();
 
-    // サーバー起動時に呼ぶ（ConstituentsJsonLoader を使ってロード）
-//    public static void loadAll() {
-//        Map<String, ConstituentsData> loaded = ConstituentsJsonLoader.loadFromConfigOrResources2();
-//        if (loaded != null) {
-//            serverData.clear();
-//            serverData.putAll(loaded);
-//        }
-//    }
+    public static void loadDataOnServer() {
+        // ConstituentsJsonLoaderを使ってJSONを読み込む
+        Map<String, ConstituentsData> loadedData = ConstituentsJsonLoader.CONSTITUENTS_DATA; // 恐らくConstituentsJsonLoader内にloadメソッドがあるはず
+
+        serverData.clear();
+        if (loadedData != null) {
+            serverData.putAll(loadedData);
+        }
+        // デバッグ用: サーバーログにデータが読み込まれたか出力
+        System.out.println("ConstituentsManager: Loaded " + serverData.size() + " entries on the server.");
+    }
 
     public static Map<String, ConstituentsData> getServerData() {
         return Collections.unmodifiableMap(serverData);

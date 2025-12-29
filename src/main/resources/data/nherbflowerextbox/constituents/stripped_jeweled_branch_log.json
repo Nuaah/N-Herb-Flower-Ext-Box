@@ -1,0 +1,8 @@
+{
+  "components": [
+    {"soluble" : "water","part" : "stem","id": "nherbflowerextbox:elixir", "amount": 0.02,"duration" : 1},
+    {"soluble" : "water","part" : "stem","id": "minecraft:instant_damage", "amount": 0.02,"duration" : 1},
+    {"soluble" : "fat","part" : "stem","id": "minecraft:poison", "amount": 0.02,"duration" : 2}
+  ],
+  "color" : [0.01, 0.01, 0.02, 0.0]
+}

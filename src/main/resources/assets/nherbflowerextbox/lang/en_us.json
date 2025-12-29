@@ -2,6 +2,7 @@
   "itemGroup.NHerbFlowerExtBoxMain": "N Herb Flower Ext Box",
 
   "item.nherbflowerextbox.custom_potion" : "Custom Potion",
+  "item.nherbflowerextbox.custom_splash_potion" : "Custom Splash Potion",
   "item.nherbflowerextbox.ethanol_potion" : "Ethanol Potion",
 
   "block.nherbflowerextbox.bellflower" : "Bellflower",
@@ -31,9 +32,44 @@
   "block.nherbflowerextbox.peyote" : "Peyote",
   "item.nherbflowerextbox.dried_peyote" : "Dried Peyote",
   "item.nherbflowerextbox.peyote_powder" : "Peyote Powder",
+  "block.nherbflowerextbox.palgant" : "Palgant",
+  "item.nherbflowerextbox.dried_palgant" : "Dried Palgant",
+  "item.nherbflowerextbox.palgant_powder" : "Palgant Powder",
+  "block.nherbflowerextbox.eclaty" : "Eclaty",
+  "item.nherbflowerextbox.dried_eclaty" : "Dried Eclaty",
+  "item.nherbflowerextbox.eclaty_powder" : "Eclaty Powder",
+  "block.nherbflowerextbox.fireflies_mushroom" : "Fireflies Mushroom",
+  "item.nherbflowerextbox.dried_fireflies_mushroom" : "Dried Fireflies Mushroom",
+  "item.nherbflowerextbox.fireflies_mushroom_powder" : "Fireflies Mushroom Powder",
+  "block.nherbflowerextbox.aurora_mushroom" : "Aurora Mushroom",
+  "item.nherbflowerextbox.dried_aurora_mushroom" : "Dried Aurora Mushroom",
+  "item.nherbflowerextbox.aurora_mushroom_powder" : "Aurora Mushroom Powder",
+  "block.nherbflowerextbox.pomium" : "Pomium",
+  "item.nherbflowerextbox.dried_pomium" : "Dried Pomium",
+  "item.nherbflowerextbox.pomium_powder" : "Pomium Powder",
 
+  "item.nherbflowerextbox.dried_wither_rose" : "Dried Wither Rose",
+  "item.nherbflowerextbox.dried_cornflower" : "Dried Cornflower",
+  "item.nherbflowerextbox.dried_lily_of_the_valley" : "Dried Lily Of The Valley",
+  "item.nherbflowerextbox.dried_dandelion" : "Dried Dandelion",
+  "item.nherbflowerextbox.dried_poppy" : "Dried Dandelion",
+  "item.nherbflowerextbox.dried_allium" : "Dried Allium",
+  "item.nherbflowerextbox.wither_rose_powder" : "Wither Rose Powder",
+  "item.nherbflowerextbox.cornflower_powder" : "Cornflower Powder",
+  "item.nherbflowerextbox.lily_of_the_valley_powder" : "Lily Of The Valley Powder",
+  "item.nherbflowerextbox.dandelion_powder" : "Dandelion Powder",
+  "item.nherbflowerextbox.poppy_powder" : "Dandelion Powder",
+  "item.nherbflowerextbox.allium_powder" : "Allium Powder",
+  
   "block.nherbflowerextbox.millstone" : "Millstone",
   "block.nherbflowerextbox.clay_cauldron" : "Clay Cauldron",
+
+  "block.nherbflowerextbox.jeweled_branch_log" : "Jeweled Branch Log",
+  "block.nherbflowerextbox.stripped_jeweled_branch_log" : "Stripped Jeweled Branch Log",
+  "block.nherbflowerextbox.jeweled_branch_sapling" : "Jeweled Branch Sapling",
+  "block.nherbflowerextbox.jeweled_branch_leave" : "Jeweled Branch Leave",
+  "block.nherbflowerextbox.jeweled_branch_planks" : "Jeweled Branch Planks",
+  "block.nherbflowerextbox.sap_extractor" : "Sap Extractor",
 
   "container.nherbflowerextbox.millstone" : "Millstone",
   "container.nherbflowerextbox.clay_cauldron" : "Clay Cauldron",
@@ -50,6 +86,10 @@
   "tooltip.clay_cauldron.nherbflowerextbox.ethanol" : "Ethanol",
   "tooltip.clay_cauldron.nherbflowerextbox.component" : "Component",
 
+  "tooltip.clay_cauldron.nherbflowerextbox.normal_fire" : "Normal Fire",
+  "tooltip.clay_cauldron.nherbflowerextbox.high_fire" : "High Fire",
+  "tooltip.clay_cauldron.nherbflowerextbox.switch.fire" : "Click to Change",
+
   "tooltip.constituent.nherbflowerextbox.healing" : "Healing",
   "tooltip.constituent.nherbflowerextbox.resistance" : "resistance",
 
@@ -62,5 +102,6 @@
   "effect.nherbflowerextbox.colorblind" : "ColorBlind",
   "effect.nherbflowerextbox.bloodshot" : "Bloodshot",
   "effect.nherbflowerextbox.satiety" : "Satiety",
-  "effect.nherbflowerextbox.rainbow_vision" : "Rainbow Vision"
+  "effect.nherbflowerextbox.rainbow_vision" : "Rainbow Vision",
+  "effect.nherbflowerextbox.elixir" : "Elixir"
 }

@@ -3,9 +3,12 @@ package com.Nuaah.NHerbFlowerExtBox.gui.screen;
 import com.Nuaah.NHerbFlowerExtBox.gui.container.ClayCauldronMenu;
 import com.Nuaah.NHerbFlowerExtBox.gui.container.ClayCauldronMenu;
 import com.Nuaah.NHerbFlowerExtBox.main.NHerbFlowerExtBox;
+import com.Nuaah.NHerbFlowerExtBox.regi.net2.ClayCauldronEvaporatePacket;
+import com.Nuaah.NHerbFlowerExtBox.regi.net2.NetworkHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,6 +24,8 @@ import java.util.Optional;
 
 @SuppressWarnings("removal")
 public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu> {
+
+    private Button toggleButton;
 
     public static final ResourceLocation CLAY_CAULDRON_TEXTURE = new ResourceLocation(NHerbFlowerExtBox.MOD_ID,"textures/gui/container/clay_cauldron.png");
 
@@ -42,6 +47,7 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
 
         int setW = (this.width - this.imageWidth) / 2;
         addWaterTooltip(graphics,w,h);
+        addFireTooltip(graphics,w,h,setW);
     }
 
     @Override
@@ -76,13 +82,21 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
         if (menu.getHeating()){
             int x = setW * 2 - 44;
             int y = topPos + 66;
-
-            graphics.blit(
-                new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "textures/gui/container/clay_cauldron.png"),
-                x, y,
-                176, 0,   // u,v
-                14, 14 // width,height
-            );
+            if (menu.getEvaporate()){
+                graphics.blit(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "textures/gui/container/clay_cauldron.png"),
+                    x, y,
+                    192, 0,   // u,v
+                    14, 14 // width,height
+                );
+            } else {
+                graphics.blit(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "textures/gui/container/clay_cauldron.png"),
+                    x, y,
+                    176, 0,   // u,v
+                    14, 14 // width,height
+                );
+            }
         }
 
         // --- ゲージの描画 ---
@@ -116,9 +130,6 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
             List<Component> lines = new ArrayList<>();
             Map<String,Float> constituents = menu.getConstituents();
             Map<String,Integer> durations = menu.getDurations();
-
-            System.out.println(constituents);
-            System.out.println(durations);
 
             if (water > 0){
                 if (menu.getLiquidType().equals("water")){
@@ -171,6 +182,53 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
             // Tooltip を描画
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
         }
+    }
+
+    private void addFireTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY,int setW) {
+        int x = setW * 2 - 44;
+        int y = topPos + 66;
+        int width = 16;
+        int height = 16;
+
+        if (mouseX >= x && mouseX <= x + width &&
+                mouseY >= y && mouseY <= y + height) {
+            // Tooltip に表示するテキスト
+            List<Component> tooltip = new ArrayList<>();
+            if (menu.getEvaporate()){
+                tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".high_fire"));
+            } else {
+                tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".normal_fire"));
+            }
+
+            tooltip.add(Component.translatable("tooltip.clay_cauldron." + NHerbFlowerExtBox.MOD_ID + ".switch.fire").withStyle(ChatFormatting.BLUE));
+
+            // Tooltip を描画
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int x = 206;
+        int y = 103;
+        int width = 16;
+        int height = 16;
+
+        boolean result = super.mouseClicked(mouseX, mouseY, button);
+
+        // 特定のエリア定義（例: x:50-150, y:50-100）
+        if (mouseX >= x && mouseX <= x + width &&
+                mouseY >= y && mouseY <= y + height) {
+            // エリア内クリック時の処理
+            System.out.println("Custom area clicked! Button: " + button);
+            NetworkHandler.CHANNEL.sendToServer(new ClayCauldronEvaporatePacket(menu.getBlockPos()));
+            return true; // イベント消費
+        }
+        return result;
+    }
+
+    private Component getButtonText() {
+        return menu.getEvaporate() ? Component.literal("ON") :  Component.literal("OFF");
     }
 
     @Override

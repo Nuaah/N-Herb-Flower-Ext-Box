@@ -1,0 +1,7 @@
+{
+  "components": [
+    {"soluble" : "fat","part" : "stem","id": "nherbflowerextbox:bloodshot", "amount": 0.01,"duration" : 1},
+    {"soluble" : "fat","part" : "stem","id": "minecraft:regeneration", "amount": 0.02,"duration" : 1}
+  ],
+  "color" : [0.01, 0.01, 0, 0.0]
+}

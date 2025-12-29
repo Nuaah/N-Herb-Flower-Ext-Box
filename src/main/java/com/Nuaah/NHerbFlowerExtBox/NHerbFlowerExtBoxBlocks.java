@@ -20,6 +20,7 @@ public class NHerbFlowerExtBoxBlocks {
         public static final RegistryObject<Block> MILLSTONE = BLOCKS.register("millstone", BlockMillstone::new);
         public static final RegistryObject<Block> MILLSTONE_TOP = BLOCKS.register("millstone_up", BlockMillstone::new);
         public static final RegistryObject<Block> CLAY_CAULDRON = BLOCKS.register("clay_cauldron", BlockClayCauldron::new);
+        public static final RegistryObject<Block> SAP_EXTRACTOR = BLOCKS.register("sap_extractor", BlockSapExtractor::new);
 
         public static final RegistryObject<Block> BELLFLOWER = BLOCKS.register("bellflower", BlockBellflower::new);
         public static final RegistryObject<Block> GARDEN_MARIGOLD = BLOCKS.register("garden_marigold", BlockGardenMarigold::new);
@@ -30,7 +31,20 @@ public class NHerbFlowerExtBoxBlocks {
         public static final RegistryObject<Block> MOONFLOWER = BLOCKS.register("moonflower", BlockMoonflower::new);
         public static final RegistryObject<Block> PRICKLY_PEAR = BLOCKS.register("prickly_pear", BlockPricklyPear::new);
         public static final RegistryObject<Block> PEYOTE = BLOCKS.register("peyote", BlockPeyote::new);
-        
+        public static final RegistryObject<Block> PALGANT = BLOCKS.register("palgant", BlockPalgant::new);
+        public static final RegistryObject<Block> ECLATY = BLOCKS.register("eclaty", BlockEclaty::new);
+        public static final RegistryObject<Block> FIREFLIES_MUSHROOM = BLOCKS.register("fireflies_mushroom", BlockFirefliesMushroom::new);
+        public static final RegistryObject<Block> FIREFLIES_MUSHROOM_TOP = BLOCKS.register("fireflies_mushroom_top", BlockFirefliesMushroom::new);
+        public static final RegistryObject<Block> AURORA_MUSHROOM = BLOCKS.register("aurora_mushroom", BlockAuroraMushroom::new);
+        public static final RegistryObject<Block> AURORA_MUSHROOM_TOP = BLOCKS.register("aurora_mushroom_top", BlockAuroraMushroom::new);
+        public static final RegistryObject<Block> POMIUM = BLOCKS.register("pomium", BlockPomium::new);
+
+        public static final RegistryObject<Block> STRIPPED_JEWELED_BRANCH_LOG = BLOCKS.register("stripped_jeweled_branch_log", BlockStrippedJeweledBranchLog::new);
+        public static final RegistryObject<Block> JEWELED_BRANCH_LOG = BLOCKS.register("jeweled_branch_log", BlockJeweledBranchLog::new);
+        public static final RegistryObject<Block> JEWELED_BRANCH_LEAVE = BLOCKS.register("jeweled_branch_leave", () -> new BlockJeweledBranchLeave(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_LEAVES)));
+        public static final RegistryObject<Block> JEWELED_BRANCH_SAPLING = BLOCKS.register("jeweled_branch_sapling", BlockJeweledBranchSapling::new);
+        public static final RegistryObject<Block> JEWELED_BRANCH_PLANKS = BLOCKS.register("jeweled_branch_planks", () -> new IntroductionLogBlock(BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.OAK_PLANKS)));
+
         public static final RegistryObject<Block> POTTED_BELLFLOWER =
             BLOCKS.register("potted_bellflower",
                 () -> new FlowerPotBlock(() -> POT, BELLFLOWER, POT_PROPERTIES));
@@ -58,6 +72,21 @@ public class NHerbFlowerExtBoxBlocks {
         public static final RegistryObject<Block> POTTED_PEYOTE =
                 BLOCKS.register("potted_peyote",
                         () -> new FlowerPotBlock(() -> POT, PEYOTE, POT_PROPERTIES));
+        public static final RegistryObject<Block> POTTED_PALGANT =
+                BLOCKS.register("potted_palgant",
+                        () -> new FlowerPotBlock(() -> POT, PALGANT, POT_PROPERTIES));
+        public static final RegistryObject<Block> POTTED_ECLATY =
+                BLOCKS.register("potted_eclaty",
+                        () -> new FlowerPotBlock(() -> POT, ECLATY, POT_PROPERTIES));
+        public static final RegistryObject<Block> POTTED_FIREFLIES_MUSHROOM =
+                BLOCKS.register("potted_fireflies_mushroom",
+                        () -> new FlowerPotBlock(() -> POT, FIREFLIES_MUSHROOM, POT_PROPERTIES));
+        public static final RegistryObject<Block> POTTED_AURORA_MUSHROOM =
+                BLOCKS.register("potted_aurora_mushroom",
+                        () -> new FlowerPotBlock(() -> POT, AURORA_MUSHROOM, POT_PROPERTIES));
+        public static final RegistryObject<Block> POTTED_POMIUM =
+                BLOCKS.register("potted_pomium",
+                        () -> new FlowerPotBlock(() -> POT, POMIUM, POT_PROPERTIES));
     }
     
     private static final FlowerPotBlock POT = (FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT;
@@ -86,11 +115,35 @@ public class NHerbFlowerExtBoxBlocks {
                 () -> new BlockItem(Blocks.PRICKLY_PEAR.get(),new Item.Properties()));
         public static final RegistryObject<Item> PEYOTE = BLOCK_ITEMS.register("peyote",
                 () -> new BlockItem(Blocks.PEYOTE.get(),new Item.Properties()));
+        public static final RegistryObject<Item> PALGANT = BLOCK_ITEMS.register("palgant",
+                () -> new BlockItem(Blocks.PALGANT.get(),new Item.Properties()));
+        public static final RegistryObject<Item> ECLATY = BLOCK_ITEMS.register("eclaty",
+                () -> new BlockItem(Blocks.ECLATY.get(),new Item.Properties()));
+        public static final RegistryObject<Item> FIREFLIES_MUSHROOM = BLOCK_ITEMS.register("fireflies_mushroom",
+                () -> new BlockItem(Blocks.FIREFLIES_MUSHROOM.get(),new Item.Properties()));
+        public static final RegistryObject<Item> AURORA_MUSHROOM = BLOCK_ITEMS.register("aurora_mushroom",
+                () -> new BlockItem(Blocks.AURORA_MUSHROOM.get(),new Item.Properties()));
+        public static final RegistryObject<Item> POMIUM = BLOCK_ITEMS.register("pomium",
+                () -> new BlockItem(Blocks.POMIUM.get(),new Item.Properties()));
+
+        public static final RegistryObject<Item> STRIPPED_JEWELED_BRANCH_LOG = BLOCK_ITEMS.register("stripped_jeweled_branch_log",
+                () -> new BlockItem(Blocks.STRIPPED_JEWELED_BRANCH_LOG.get(),new Item.Properties()));
+        public static final RegistryObject<Item> JEWELED_BRANCH_LOG = BLOCK_ITEMS.register("jeweled_branch_log",
+                () -> new BlockItem(Blocks.JEWELED_BRANCH_LOG.get(),new Item.Properties()));
+        public static final RegistryObject<Item> JEWELED_BRANCH_LEAVE = BLOCK_ITEMS.register("jeweled_branch_leave",
+                () -> new BlockItem(Blocks.JEWELED_BRANCH_LEAVE.get(),new Item.Properties()));
+        public static final RegistryObject<Item> JEWELED_BRANCH_SAPLING = BLOCK_ITEMS.register("jeweled_branch_sapling",
+                () -> new BlockItem(Blocks.JEWELED_BRANCH_SAPLING.get(),new Item.Properties()));
+        public static final RegistryObject<Item> JEWELED_BRANCH_PLANKS = BLOCK_ITEMS.register("jeweled_branch_planks",
+                () -> new BlockItem(Blocks.JEWELED_BRANCH_PLANKS.get(),new Item.Properties()));
 
         public static final RegistryObject<Item> MILLSTONE = BLOCK_ITEMS.register("millstone",
                 () -> new BlockItem(Blocks.MILLSTONE.get(),new Item.Properties()));
 
         public static final RegistryObject<Item> CLAY_CAULDRON = BLOCK_ITEMS.register("clay_cauldron",
                 () -> new BlockItem(Blocks.CLAY_CAULDRON.get(),new Item.Properties()));
+
+        public static final RegistryObject<Item> SAP_EXTRACTOR = BLOCK_ITEMS.register("sap_extractor",
+                () -> new BlockItem(Blocks.SAP_EXTRACTOR.get(),new Item.Properties()));
     }
 }

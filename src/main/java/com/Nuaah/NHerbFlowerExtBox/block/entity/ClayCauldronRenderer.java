@@ -3,6 +3,7 @@ package com.Nuaah.NHerbFlowerExtBox.block.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -47,8 +48,7 @@ public class ClayCauldronRenderer implements BlockEntityRenderer<ClayCauldronEnt
         // 半透明の描画バッファを取得
         VertexConsumer builder = bufferSource.getBuffer(RenderType.translucent());
 
-        // 水面の色 (R, G, B, A) - ここでは標準的な水の青色
-        // バイオームの色を反映させたい場合は BiomeColors を使いますが、今回は固定色にします
+        // バイオームの色を反映させたい場合は BiomeColors
         float r = waterColor.get(0);
         float g = waterColor.get(1);
         float b = waterColor.get(2);

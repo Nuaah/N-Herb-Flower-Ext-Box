@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "nherbflowerextbox:jeweled_branch_log"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "nherbflowerextbox:jeweled_branch_planks"
+  }
+}

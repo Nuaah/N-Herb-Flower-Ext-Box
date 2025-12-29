@@ -6,10 +6,12 @@ import com.Nuaah.NHerbFlowerExtBox.block.entity.NHerbFlowerExtBoxEntityTypes;
 import com.Nuaah.NHerbFlowerExtBox.gui.container.NHerbFlowerExtBoxContainerTypes;
 import com.Nuaah.NHerbFlowerExtBox.regi.*;
 import com.Nuaah.NHerbFlowerExtBox.regi.net2.ConstituentsManager;
+import com.Nuaah.NHerbFlowerExtBox.regi.net2.NetworkHandler;
 import com.Nuaah.NHerbFlowerExtBox.regi.net2.PacketSyncConstituents;
 import com.Nuaah.NHerbFlowerExtBox.regi.net2.PlayerEventHandler;
 import com.Nuaah.NHerbFlowerExtBox.regi.tab.NHerbFlowerExtBoxTabs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,6 +45,7 @@ public class NHerbFlowerExtBox {
         NHerbFlowerExtBoxRecipeType.RECIPE_TYPES.register(bus);
         NHerbFlowerExtBoxEffect.EFFECTS.register(bus);
 
+
 //        MinecraftForge.EVENT_BUS.register(ServerPacketHandler.class);
 
         bus.addListener(this::commonSetup);
@@ -53,7 +56,8 @@ public class NHerbFlowerExtBox {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            registerPackets();
+            NetworkHandler.register();
+//            registerPackets();
 
             // サーバーでも JSON を読み込ませる（ConstituentsJsonLoader にロード用メソッドがある想定）
             // もし loader が ResourceManager に依存するなら、common側で読み込める実装にする必要あり
@@ -100,27 +104,26 @@ public class NHerbFlowerExtBox {
                     new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "peyote"),
                     NHerbFlowerExtBoxBlocks.Blocks.POTTED_PEYOTE
             );
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "palgant"),
+                    NHerbFlowerExtBoxBlocks.Blocks.POTTED_PALGANT
+            );
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "eclaty"),
+                    NHerbFlowerExtBoxBlocks.Blocks.POTTED_ECLATY
+            );
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "fireflies_mushroom"),
+                    NHerbFlowerExtBoxBlocks.Blocks.POTTED_FIREFLIES_MUSHROOM
+            );
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "aurora_mushroom"),
+                    NHerbFlowerExtBoxBlocks.Blocks.POTTED_AURORA_MUSHROOM
+            );
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(
+                    new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "pomium"),
+                    NHerbFlowerExtBoxBlocks.Blocks.POTTED_POMIUM
+            );
         });
-    }
-
-    public static final String PROTOCOL_VERSION = "1";
-    public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "main"),
-            () -> PROTOCOL_VERSION,
-            PROTOCOL_VERSION::equals,
-            PROTOCOL_VERSION::equals
-    );
-
-    // モッドの初期化時（FMLCommonSetupEventなど）に呼び出す
-    public static void registerPackets() {
-        int id = 0;
-        CHANNEL.registerMessage(
-                id++,
-                PacketSyncConstituents.class,
-                PacketSyncConstituents::encode,
-                PacketSyncConstituents::decode,
-                PacketSyncConstituents::handle,
-                java.util.Optional.of(net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT)
-        );
     }
 }

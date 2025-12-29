@@ -1,0 +1,10 @@
+{
+  "components": [
+    {"soluble" : "water","part" : "flower","id": "minecraft:slow_falling", "amount": 0.1,"duration" : 30},
+    {"soluble" : "water","part" : "leaf","id": "minecraft:water_breathing", "amount": 0.1,"duration" : 30},
+    {"soluble" : "fat","part" : "leaf","id": "minecraft:slowness", "amount": 0.2,"duration" : 20},
+    {"soluble" : "fat","part" : "root","id": "minecraft:haste", "amount": 0.1,"duration" : 60}
+  ],
+  "color" : [-0.1, 0.1, 0.1, 0.0]
+}
+

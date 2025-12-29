@@ -28,6 +28,13 @@ public class ModPlantBiomeModifier {
     public static final ResourceKey<BiomeModifier> PRICKLY_PEAR_KEY = createKey("prickly_pear");
     public static final ResourceKey<BiomeModifier> PEPPERMINT_KEY = createKey("peppermint");
     public static final ResourceKey<BiomeModifier> MOONFLOWER_KEY = createKey("moonflower");
+    public static final ResourceKey<BiomeModifier> PALGANT_KEY = createKey("palgant");
+    public static final ResourceKey<BiomeModifier> ECLATY_KEY = createKey("eclaty");
+    public static final ResourceKey<BiomeModifier> FIREFLIES_MUSHROOM_KEY = createKey("fireflies_mushroom");
+    public static final ResourceKey<BiomeModifier> AURORA_MUSHROOM_KEY = createKey("aurora_mushroom");
+    public static final ResourceKey<BiomeModifier> POMIUM_KEY = createKey("pomium");
+
+    public static final ResourceKey<BiomeModifier> JEWELED_BRANCH_TREE_KEY = createKey("jeweled_branch_tree");
 
     public static void bootstrap(BootstapContext<BiomeModifier> context){
         // Biome/PlacedFeature の参照をセットアップ
@@ -53,90 +60,86 @@ public class ModPlantBiomeModifier {
         ));
 
         context.register(GARDEN_MARIGOLD_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
             biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
-
-            // Placed Feature の指定: 作成した bellflower_placed を参照
             HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.GARDEN_MARIGOLD_KEY)),
-
-            // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
             GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(LAVENDER_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
                 biomes.getOrThrow(BiomeTags.IS_MOUNTAIN),
-
-                // Placed Feature の指定: 作成した bellflower_placed を参照
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.LAVENDER_KEY)),
-
-                // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(SHEPHERDS_PURSE_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
-
-                // Placed Feature の指定: 作成した bellflower_placed を参照
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.SHEPHERDS_PURSE_KEY)),
-
-                // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(GINSENG_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
             biomes.getOrThrow(BiomeTags.IS_MOUNTAIN),
-
-            // Placed Feature の指定: 作成した bellflower_placed を参照
             HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.GINSENG_KEY)),
-
-            // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
             GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(PEYOTE_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
                 biomes.getOrThrow(IS_DESERT),
-
-                // Placed Feature の指定: 作成した bellflower_placed を参照
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.PEYOTE_KEY)),
-
-                // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(PRICKLY_PEAR_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
                 biomes.getOrThrow(IS_DESERT),
-
-                // Placed Feature の指定: 作成した bellflower_placed を参照
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.PRICKLY_PEAR_KEY)),
-
-                // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(PEPPERMINT_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
-
-                // Placed Feature の指定: 作成した bellflower_placed を参照
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.PEPPERMINT_KEY)),
-
-                // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
         context.register(MOONFLOWER_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-
                 biomes.getOrThrow(BiomeTags.IS_MOUNTAIN),
-
-                // Placed Feature の指定: 作成した bellflower_placed を参照
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.MOONFLOWER_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
 
-                // 生成ステップの指定: 花は 'VEGETAL_DECORATION' に置く
+        context.register(PALGANT_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.PALGANT_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
+
+        context.register(ECLATY_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.ECLATY_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
+
+        context.register(FIREFLIES_MUSHROOM_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.FIREFLIES_MUSHROOM_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
+
+        context.register(AURORA_MUSHROOM_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.AURORA_MUSHROOM_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
+
+        context.register(POMIUM_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.POMIUM_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
+
+        context.register(JEWELED_BRANCH_TREE_KEY, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_MOUNTAIN),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlantPlacedFeature.JEWELED_BRANCH_TREE_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
     }

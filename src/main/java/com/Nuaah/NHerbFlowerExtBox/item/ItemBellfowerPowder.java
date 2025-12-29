@@ -15,10 +15,4 @@ public class ItemBellfowerPowder extends Item {
     public ItemBellfowerPowder() {
         super(new Properties());
     }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
-        p_41433_.addEffect(new MobEffectInstance(NHerbFlowerExtBoxEffect.RAINBOW_VISION.get(),200,0));
-        return super.use(p_41432_, p_41433_, p_41434_);
-    }
 }

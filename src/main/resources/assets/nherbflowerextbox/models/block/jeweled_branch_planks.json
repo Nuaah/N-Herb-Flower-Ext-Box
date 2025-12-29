@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nherbflowerextbox:block/jeweled_branch_planks"
+  }
+}

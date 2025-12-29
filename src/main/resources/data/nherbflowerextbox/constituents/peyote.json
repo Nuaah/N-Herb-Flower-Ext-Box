@@ -1,6 +1,6 @@
 {
   "components": [
-    {"soluble" : "water","part" : "leaf","id": "minecraft:regeneration", "amount": 0.2,"duration" : 20},
+    {"soluble" : "water","part" : "leaf","id": "minecraft:regeneration", "amount": 0.2,"duration" : 40},
     {"soluble" : "water","part" : "leaf","id": "nherbflowerextbox:rainbow_vision", "amount": 0.2,"duration" : 20}
   ],
   "color" : [0.0, 0.0, 0.1, 0.0]

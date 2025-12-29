@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nherbflowerextbox:palgant"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:redstone"
+  }
+}

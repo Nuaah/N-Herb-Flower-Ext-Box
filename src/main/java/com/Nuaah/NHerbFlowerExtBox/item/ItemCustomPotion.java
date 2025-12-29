@@ -15,6 +15,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -25,9 +28,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings("removal")
 public class ItemCustomPotion extends Item {
+
+    private static final UUID HEALTH_BONUS_UUID = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
     public ItemCustomPotion() {
         super(new Properties().stacksTo(1));
     }
@@ -63,14 +69,14 @@ public class ItemCustomPotion extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
 
-        if (!level.isClientSide()) {
-            for (CustomPotionData ed : getEffects(stack)) {
-                System.out.println(ed.name);
-                System.out.println(ed.duration);
-                System.out.println(ed.level);
-            }
+        if (!world.isClientSide()) {
+//            for (CustomPotionData ed : getEffects(stack)) {
+//                System.out.println(ed.name);
+//                System.out.println(ed.duration);
+//                System.out.println(ed.level);
+//            }
 
             ListTag list = stack.getOrCreateTag().getList("CustomEffects", Tag.TAG_COMPOUND);
 
@@ -83,16 +89,16 @@ public class ItemCustomPotion extends Item {
 
                 if(potionLevel <= 0) continue;
 
+                if (specialBonus(name,potionLevel,world,entity)) break;  //特殊
+
                 potionLevel -= 1; //0スタート
 
                 ResourceLocation effectId = new ResourceLocation(name);
                 MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
 
-                System.out.println("effect");
-                System.out.println(effect);
                 // 自作効果を取得
                 MobEffectInstance instance = new MobEffectInstance(effect,duration,potionLevel);
-                System.out.println(instance);
+
                 if (instance != null ) {
                     entity.addEffect(instance);
                 }
@@ -103,7 +109,36 @@ public class ItemCustomPotion extends Item {
             if (!player.getAbilities().instabuild) player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GLASS_BOTTLE));
         }
 
-        return super.finishUsingItem(stack, level, entity);
+        return super.finishUsingItem(stack, world, entity);
+    }
+
+    private boolean specialBonus(String effectName,int level,Level world,LivingEntity entity){
+        if (effectName.contains("elixir")){
+            if (!world.isClientSide && entity instanceof Player player) {
+                // 1. 最大HPの属性を取得
+                AttributeInstance maxHealthAttr = player.getAttribute(Attributes.MAX_HEALTH);
+
+                if (maxHealthAttr != null) {
+                    // 2. 現在のボーナス値を取得（既にある場合は加算するため）
+                    double currentBonus = 0;
+                    AttributeModifier oldModifier = maxHealthAttr.getModifier(HEALTH_BONUS_UUID);
+                    if (oldModifier != null) {
+                        currentBonus = oldModifier.getAmount();
+                        // 上書きするために一度削除
+                        maxHealthAttr.removeModifier(HEALTH_BONUS_UUID);
+                    }
+
+                    maxHealthAttr.addPermanentModifier(new AttributeModifier(
+                        HEALTH_BONUS_UUID,
+                        "Health Bonus",
+                        currentBonus + level,
+                        AttributeModifier.Operation.ADDITION
+                    ));
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

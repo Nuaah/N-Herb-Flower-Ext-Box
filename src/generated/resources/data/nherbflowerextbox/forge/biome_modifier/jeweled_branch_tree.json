@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_mountain",
+  "features": "nherbflowerextbox:jeweled_branch_tree",
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,8 @@
+{
+  "components": [
+    {"soluble" : "fat","part" : "stem","id": "nherbflowerextbox:stagger", "amount": 0.01,"duration" : 1},
+    {"soluble" : "fat","part" : "stem","id": "minecraft:jump_boost", "amount": 0.02,"duration" : 1},
+    {"soluble" : "fat","part" : "stem","id": "minecraft:speed", "amount": 0.02,"duration" : 1}
+  ],
+  "color" : [0, 0, 0.01, 0.0]
+}

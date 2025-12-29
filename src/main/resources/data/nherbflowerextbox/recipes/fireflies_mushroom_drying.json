@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "nherbflowerextbox:fireflies_mushroom"
+  },
+  "result": "nherbflowerextbox:dried_fireflies_mushroom",
+  "experience": 0.0,
+  "cookingtime": 200
+}

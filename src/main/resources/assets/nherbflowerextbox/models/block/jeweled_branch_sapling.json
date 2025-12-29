@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "nherbflowerextbox:block/jeweled_branch_sapling"
+  }
+}

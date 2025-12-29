@@ -1,0 +1,11 @@
+{
+  "type": "nherbflowerextbox:millstone_grinding",
+  "input": {
+    "item": "nherbflowerextbox:dried_fireflies_mushroom"
+  },
+  "result": {
+    "item": "nherbflowerextbox:fireflies_mushroom_powder",
+    "count": 1
+  },
+  "processing_time": 100
+}

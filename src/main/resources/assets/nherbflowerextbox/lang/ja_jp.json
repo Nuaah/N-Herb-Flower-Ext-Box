@@ -2,6 +2,7 @@
   "itemGroup.NHerbFlowerExtBoxMain": "N Herb Flower Ext Box",
 
   "item.nherbflowerextbox.custom_potion" : "オリジナルポーション",
+  "item.nherbflowerextbox.custom_splash_potion" : "オリジナルスプラッシュポーション",
   "item.nherbflowerextbox.ethanol_potion" : "エタノールポーション",
 
   "block.nherbflowerextbox.bellflower" : "キキョウ",
@@ -31,6 +32,21 @@
   "block.nherbflowerextbox.peyote" : "ペヨーテ",
   "item.nherbflowerextbox.dried_peyote" : "乾燥したペヨーテ",
   "item.nherbflowerextbox.peyote_powder" : "ペヨーテの粉末",
+  "block.nherbflowerextbox.palgant" : "パルガント",
+  "item.nherbflowerextbox.dried_palgant" : "乾燥したパルガント",
+  "item.nherbflowerextbox.palgant_powder" : "パルガントの粉末",
+  "block.nherbflowerextbox.eclaty" : "エクラティー",
+  "item.nherbflowerextbox.dried_eclaty" : "乾燥したエクラティー",
+  "item.nherbflowerextbox.eclaty_powder" : "エクラティーの粉末",
+  "block.nherbflowerextbox.fireflies_mushroom" : "ホタルキノコ",
+  "item.nherbflowerextbox.dried_fireflies_mushroom" : "乾燥したホタルキノコ",
+  "item.nherbflowerextbox.fireflies_mushroom_powder" : "ホタルキノコの粉末",
+  "block.nherbflowerextbox.aurora_mushroom" : "オーロラキノコ",
+  "item.nherbflowerextbox.dried_aurora_mushroom" : "乾燥したオーロラキノコ",
+  "item.nherbflowerextbox.aurora_mushroom_powder" : "オーロラキノコの粉末",
+  "block.nherbflowerextbox.pomium" : "ポミウム",
+  "item.nherbflowerextbox.dried_pomium" : "乾燥したポミウム",
+  "item.nherbflowerextbox.pomium_powder" : "ポミウムの粉末",
 
   "item.nherbflowerextbox.dried_wither_rose" : "乾燥したウィザーローズ",
   "item.nherbflowerextbox.dried_cornflower" : "乾燥したヤグルマギク",
@@ -48,6 +64,13 @@
   "block.nherbflowerextbox.millstone" : "石臼",
   "block.nherbflowerextbox.clay_cauldron" : "土釜",
 
+  "block.nherbflowerextbox.jeweled_branch_log" : "蓬莱の原木",
+  "block.nherbflowerextbox.stripped_jeweled_branch_log" : "樹皮を剥いだ蓬莱の原木",
+  "block.nherbflowerextbox.jeweled_branch_sapling" : "蓬莱の苗木",
+  "block.nherbflowerextbox.jeweled_branch_leave" : "蓬莱の葉",
+  "block.nherbflowerextbox.jeweled_branch_planks" : "蓬莱の板材",
+  "block.nherbflowerextbox.sap_extractor" : "樹液の抽出器",
+
   "container.nherbflowerextbox.millstone" : "石臼",
   "container.nherbflowerextbox.clay_cauldron" : "土釜",
   "container.nherbflowerextbox.inventory" : "インベントリ",
@@ -63,6 +86,10 @@
   "tooltip.clay_cauldron.nherbflowerextbox.ethanol" : "エタノール",
   "tooltip.clay_cauldron.nherbflowerextbox.component" : "成分",
 
+  "tooltip.clay_cauldron.nherbflowerextbox.normal_fire" : "弱火",
+  "tooltip.clay_cauldron.nherbflowerextbox.high_fire" : "強火",
+  "tooltip.clay_cauldron.nherbflowerextbox.switch.fire" : "クリックで切り替え",
+
   "tooltip.constituent.nherbflowerextbox.healing" : "回復",
   "tooltip.constituent.nherbflowerextbox.resistance" : "防御",
 
@@ -75,5 +102,6 @@
   "effect.nherbflowerextbox.colorblind" : "色覚異常",
   "effect.nherbflowerextbox.bloodshot" : "充血",
   "effect.nherbflowerextbox.satiety" : "満腹",
-  "effect.nherbflowerextbox.rainbow_vision" : "虹視"
+  "effect.nherbflowerextbox.rainbow_vision" : "虹視",
+  "effect.nherbflowerextbox.elixir" : "蓬莱の力"
 }

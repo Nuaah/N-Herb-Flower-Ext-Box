@@ -29,11 +29,9 @@ public class BlockLavender extends BushBlock {
         return SHAPE.move(offset.x, offset.y, offset.z);
     }
 
-    @Override
-    public VoxelShape getVisualShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        var offset = state.getOffset(world, pos);
-        return SHAPE.move(offset.x, offset.y, offset.z);
-    }
-
-
+//    @Override
+//    public VoxelShape getVisualShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+//        var offset = state.getOffset(world, pos);
+//        return SHAPE.move(offset.x, offset.y, offset.z);
+//    }
 }

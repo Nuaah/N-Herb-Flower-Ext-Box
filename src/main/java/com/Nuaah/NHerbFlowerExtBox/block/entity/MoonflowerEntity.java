@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MoonflowerEntity extends BlockEntity {
+
     public MoonflowerEntity(BlockPos pos, BlockState state)  {
         super(NHerbFlowerExtBoxEntityTypes.MOONFLOWER.get(), pos,state);
     }

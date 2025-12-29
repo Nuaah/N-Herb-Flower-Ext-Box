@@ -19,7 +19,7 @@ public class BlockGardenMarigold extends BushBlock {
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(OffsetType.XZ)
-                .ignitedByLava());
+            .ignitedByLava());
     }
 
     @Override
