@@ -61,8 +61,8 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
 
         if (water > 0) {
             int height = (int)((water) * 10); // 最大44pxの縦ゲージ
-            int x = setW + this.imageWidth - 41;   // 描画位置X
-            int y = topPos + 49 - height; // 下から上に伸ばすように調整
+            int x = setW + 135; // imageWidthを使わず、背景画像の左端からの固定ピクセルで指定
+            int y = setH + 49 - height;
 
             List<Float> waterColor = menu.getWaterColor();
 
@@ -80,8 +80,8 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
 
         // --- 火の描画 ---
         if (menu.getHeating()){
-            int x = setW * 2 - 44;
-            int y = topPos + 66;
+            int x = setW + 81; // 背景の左端から132px右の位置（適宜調整してください）
+            int y = setH + 66;
             if (menu.getEvaporate()){
                 graphics.blit(
                     new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "textures/gui/container/clay_cauldron.png"),
@@ -102,8 +102,8 @@ public class ClayCauldronScreen extends AbstractContainerScreen<ClayCauldronMenu
         // --- ゲージの描画 ---
         int progress = menu.getProgress();
         int meter = (int)(progress * 37 / 100);
-        int x = setW * 2 - 55;
-        int y = topPos + 54;
+        int x = setW + 70; // 背景の左端から121px右の位置（適宜調整してください）
+        int y = setH + 54;
         graphics.blit(
             new ResourceLocation(NHerbFlowerExtBox.MOD_ID, "textures/gui/container/clay_cauldron.png"),
             x, y,

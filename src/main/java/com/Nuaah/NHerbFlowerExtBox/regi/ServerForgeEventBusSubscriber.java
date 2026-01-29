@@ -49,9 +49,9 @@ public class ServerForgeEventBusSubscriber {
         // 攻撃者がプレイヤーでないなら終了
         if (!(event.getSource().getEntity() instanceof Player player)) return;
 
-        if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.sendSystemMessage(Component.literal("LIVI"));
-        }
+//        if (player instanceof ServerPlayer serverPlayer) {
+//            serverPlayer.sendSystemMessage(Component.literal("LIVI"));
+//        }
 
         // 攻撃対象
         LivingEntity target = event.getEntity();
@@ -75,9 +75,9 @@ public class ServerForgeEventBusSubscriber {
                             target.addEffect(instance);
 
                             // デバッグ用メッセージ
-                            if (player instanceof ServerPlayer sp) {
-                                sp.sendSystemMessage(Component.literal("効果付与: " + entry.getKey() + " Lv:" + level));
-                            }
+//                            if (player instanceof ServerPlayer sp) {
+//                                sp.sendSystemMessage(Component.literal("効果付与: " + entry.getKey() + " Lv:" + level));
+//                            }
                         }
                     }
                 }

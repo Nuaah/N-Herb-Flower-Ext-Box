@@ -301,12 +301,8 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
 
                     tag.putLong("SyncTick", level.getGameTime()); // ItemStack側のNBTを更新
 
-                    // --- ここで Entity 側の同期を促す ---
-                    // ItemEntity自体のデータ（PersistentData）に書き込むことで
-                    // 「このEntityのデータが変わった」とサーバーに認識させ、周囲のプレイヤーに同期パケットを送らせます
                     item.getPersistentData().putBoolean("ForceSync", true);
 
-                    // 重要：アイテムの中身が変わったことをItemEntityに通知する
                     item.setItem(stack);
                 }
 
@@ -365,31 +361,31 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
 
             for (Map.Entry<String, Float> entry : constituents.entrySet()) {
                 cap.setConstituents(entry.getKey(),entry.getValue());
-                for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
-                    player.sendSystemMessage(Component.literal(entry.getKey()));
-                }
+//                for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
+//                    player.sendSystemMessage(Component.literal(entry.getKey()));
+//                }
             }
 
             for (Map.Entry<String, Integer> entry : durations.entrySet()) {
                 cap.setDurations(entry.getKey(),entry.getValue());
-                for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
-                    player.sendSystemMessage(Component.literal(entry.getKey()));
-                }
+//                for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
+//                    player.sendSystemMessage(Component.literal(entry.getKey()));
+//                }
             }
 
             System.out.println("POPOPOPOP");
 
             CompoundTag tag = stack.getOrCreateTag();
 
-            for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
-                player.sendSystemMessage(Component.literal("§a[Server] §fCHECK: POP処理実行中"));
-            }
+//            for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
+//                player.sendSystemMessage(Component.literal("§a[Server] §fCHECK: POP処理実行中"));
+//            }
 
 
             if (constituents.isEmpty()) {
-                for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
-                    player.sendSystemMessage(Component.literal("EMPTY"));
-                }
+//                for (ServerPlayer player : serverLevel.getServer().getPlayerList().getPlayers()) {
+//                    player.sendSystemMessage(Component.literal("EMPTY"));
+//                }
 
                 serverLevel.sendParticles(ParticleTypes.EXPLOSION
                         , pos.getX(), pos.getY() + 1.0,pos.getZ()
@@ -403,11 +399,10 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
 
             CompoundTag capNbt = cap.serializeNBT();
 
-            // 2. ItemStack本体のNBTに書き込む
+            //ItemStack本体のNBTに書き込む
             stack.getOrCreateTag().put("PotionData", capNbt);
 
-            // 3. 最後に、ItemEntityに対して「中身が変わったぞ」と通知して同期パケットを強制する
-            item.setItem(stack.copy()); // copyをセットすることで変更を確実に検知させる
+            item.setItem(stack.copy());
         });
 
         setChanged();
@@ -433,16 +428,22 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
     }
 
     private void mixingHerb(ConstituentsData data){
+        System.out.println("MIXING");
+        System.out.println(data);
         if (data != null) {
+            System.out.println("NOT NULL");
             for (ConstituentsData.ComponentData c : data.components) {
                 String effect = c.id;
                 String soluble = c.soluble;
+                System.out.println(effect);
 
                 if ((soluble.equals("water"))){
                     if(!liquidType.equals("water")) continue;
                 } else if ((soluble.equals("fat"))){
                     if (!liquidType.equals("ethanol")) continue;
                 }
+
+                System.out.println("SYstem mix");
 
                 if (constituents.get(effect) != null){ //効果レベル
                     float calc = constituents.get(effect) + c.amount;
@@ -480,7 +481,7 @@ public class ClayCauldronEntity extends BlockEntity implements MenuProvider {
             ItemStack stack = itemHandler.getStackInSlot(i);
 
             if(!stack.isEmpty()){
-                String id = stack.getItem().toString(); // 例: bellflower
+                String id = stack.getItem().toString();
                 ConstituentsData data = ConstituentsJsonLoader.CONSTITUENTS_DATA.get(id);
                 mixingHerb(data); //成分足す
                 itemHandler.extractItem(i,1,false);

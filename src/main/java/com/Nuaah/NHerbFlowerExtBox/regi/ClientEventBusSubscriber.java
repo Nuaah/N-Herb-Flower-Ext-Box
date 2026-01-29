@@ -109,23 +109,25 @@ public class ClientEventBusSubscriber {
                 List<Float> waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
                 CompoundTag tag = stack.getTag();
                 CompoundTag mapTag = tag.getCompound("WaterColors");
-                for (int i = 0; i < 3; i++) {
-                    waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+
+                if(!mapTag.isEmpty()){
+                    for (int i = 0; i < 3; i++) {
+                        waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+                    }
+
+                    float rF = waterColor.get(0);
+                    float gF = waterColor.get(1);
+                    float bF = waterColor.get(2);
+
+                    int r = (int)(rF * 255);
+                    int g = (int)(gF * 255);
+                    int b = (int)(bF * 255);
+
+                    int color = (r << 16) | (g << 8) | b;
+                    return color;
                 }
-
-                float rF = waterColor.get(0);
-                float gF = waterColor.get(1);
-                float bF = waterColor.get(2);
-
-                int r = (int)(rF * 255);
-                int g = (int)(gF * 255);
-                int b = (int)(bF * 255);
-
-                int color = (r << 16) | (g << 8) | b;
-                return color;
             }
 
-            // layer0 はそのままの色
             return 0xFFFFFFFF;
         }, NHerbFlowerExtBoxItems.CUSTOM_POTION.get());
 
@@ -135,23 +137,25 @@ public class ClientEventBusSubscriber {
                 List<Float> waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
                 CompoundTag tag = stack.getTag();
                 CompoundTag mapTag = tag.getCompound("WaterColors");
-                for (int i = 0; i < 3; i++) {
-                    waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+
+                if(!mapTag.isEmpty()){
+                    for (int i = 0; i < 3; i++) {
+                        waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+                    }
+
+                    float rF = waterColor.get(0);
+                    float gF = waterColor.get(1);
+                    float bF = waterColor.get(2);
+
+                    int r = (int)(rF * 255);
+                    int g = (int)(gF * 255);
+                    int b = (int)(bF * 255);
+
+                    int color = (r << 16) | (g << 8) | b;
+                    return color;
                 }
-
-                float rF = waterColor.get(0);
-                float gF = waterColor.get(1);
-                float bF = waterColor.get(2);
-
-                int r = (int)(rF * 255);
-                int g = (int)(gF * 255);
-                int b = (int)(bF * 255);
-
-                int color = (r << 16) | (g << 8) | b;
-                return color;
             }
 
-            // layer0 はそのままの色
             return 0xFFFFFFFF;
         }, NHerbFlowerExtBoxItems.CUSTOM_SPLASH_POTION.get());
 

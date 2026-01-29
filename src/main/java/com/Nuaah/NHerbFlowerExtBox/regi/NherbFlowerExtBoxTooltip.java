@@ -27,8 +27,8 @@ public class NherbFlowerExtBoxTooltip {
         String id = stack.getItem().toString(); // 例: bellflower
         ConstituentsData data = ConstituentsJsonLoader.CONSTITUENTS_DATA.get(id);
 
-        System.out.println(id);
-        System.out.println(data);
+//        System.out.println(id);
+//        System.out.println(data);
 
         if (data != null) {
             tooltip.add(Component.translatable("tooltip.constituent." + NHerbFlowerExtBox.MOD_ID + ".effect").withStyle(ChatFormatting.GREEN));

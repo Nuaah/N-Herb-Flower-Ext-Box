@@ -71,7 +71,6 @@ public class NHerbFlowerExtBoxMain {
         NHerbFlowerExtBoxBlocks.BlockItems.CLAY_CAULDRON.get(),
         NHerbFlowerExtBoxBlocks.BlockItems.SAP_EXTRACTOR.get(),
         NHerbFlowerExtBoxItems.ETHANOL_POTION.get(),
-        NHerbFlowerExtBoxItems.CUSTOM_SPLASH_POTION.get(),
 
         NHerbFlowerExtBoxBlocks.BlockItems.STRIPPED_JEWELED_BRANCH_LOG.get(),
         NHerbFlowerExtBoxBlocks.BlockItems.JEWELED_BRANCH_LOG.get(),
