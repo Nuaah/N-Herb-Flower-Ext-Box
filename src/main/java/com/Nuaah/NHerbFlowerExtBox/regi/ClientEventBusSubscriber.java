@@ -108,23 +108,24 @@ public class ClientEventBusSubscriber {
             if (tintIndex == 0) {
                 List<Float> waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
                 CompoundTag tag = stack.getTag();
-                CompoundTag mapTag = tag.getCompound("WaterColors");
+                if (tag != null && !tag.isEmpty()) {
+                    CompoundTag mapTag = tag.getCompound("WaterColors");
+                    if(!mapTag.isEmpty()){
+                        for (int i = 0; i < 3; i++) {
+                            waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+                        }
 
-                if(!mapTag.isEmpty()){
-                    for (int i = 0; i < 3; i++) {
-                        waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+                        float rF = waterColor.get(0);
+                        float gF = waterColor.get(1);
+                        float bF = waterColor.get(2);
+
+                        int r = (int)(rF * 255);
+                        int g = (int)(gF * 255);
+                        int b = (int)(bF * 255);
+
+                        int color = (r << 16) | (g << 8) | b;
+                        return color;
                     }
-
-                    float rF = waterColor.get(0);
-                    float gF = waterColor.get(1);
-                    float bF = waterColor.get(2);
-
-                    int r = (int)(rF * 255);
-                    int g = (int)(gF * 255);
-                    int b = (int)(bF * 255);
-
-                    int color = (r << 16) | (g << 8) | b;
-                    return color;
                 }
             }
 
@@ -136,23 +137,25 @@ public class ClientEventBusSubscriber {
             if (tintIndex == 0) {
                 List<Float> waterColor = new ArrayList<>(Arrays.asList(0.2f, 0.4f, 1.0f, 1.0f));
                 CompoundTag tag = stack.getTag();
-                CompoundTag mapTag = tag.getCompound("WaterColors");
+                if (tag != null && !tag.isEmpty()) {
+                    CompoundTag mapTag = tag.getCompound("WaterColors");
 
-                if(!mapTag.isEmpty()){
-                    for (int i = 0; i < 3; i++) {
-                        waterColor.set(i,mapTag.getFloat("WaterColor" + i));
+                    if(!mapTag.isEmpty()) {
+                        for (int i = 0; i < 3; i++) {
+                            waterColor.set(i, mapTag.getFloat("WaterColor" + i));
+                        }
+
+                        float rF = waterColor.get(0);
+                        float gF = waterColor.get(1);
+                        float bF = waterColor.get(2);
+
+                        int r = (int) (rF * 255);
+                        int g = (int) (gF * 255);
+                        int b = (int) (bF * 255);
+
+                        int color = (r << 16) | (g << 8) | b;
+                        return color;
                     }
-
-                    float rF = waterColor.get(0);
-                    float gF = waterColor.get(1);
-                    float bF = waterColor.get(2);
-
-                    int r = (int)(rF * 255);
-                    int g = (int)(gF * 255);
-                    int b = (int)(bF * 255);
-
-                    int color = (r << 16) | (g << 8) | b;
-                    return color;
                 }
             }
 
